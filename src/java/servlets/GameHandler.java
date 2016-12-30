@@ -5,7 +5,6 @@
  */
 package servlets;
 
-import database.TempDatabase;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -18,8 +17,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Nicklas
  */
-@WebServlet(name = "LoginHandler", urlPatterns = {"/LoginHandler"})
-public class LoginHandler extends HttpServlet {
+@WebServlet(name = "GameHandler", urlPatterns = {"/GameHandler"})
+public class GameHandler extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -30,21 +29,20 @@ public class LoginHandler extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
         try (PrintWriter out = response.getWriter()) {
-            String username = request.getParameter("inputUsername");
-            String password = request.getParameter("inputPassword");
-            System.out.println("Username: " + username + " Password: " + password);
-
-            if (TempDatabase.getInstance().login(username, password) == true) {
-                response.sendRedirect("./InGame.jsp");
-            } else {
-                String error = "That username/password combination does not exist, try again!";
-                response.sendRedirect("./Login.jsp?error=" + error);
+            /* TODO output your page here. You may use following sample code. */
+           
+            String name = null;
+            name = "Hello " + request.getParameter("user");
+            if (request.getParameter("user").toString().equals("")) {
+                name = "Hello User";
             }
-
+            response.setContentType("text/plain"); 
+            response.setCharacterEncoding("UTF-8");
+            response.getWriter().write(name);
         }
     }
 

@@ -18,8 +18,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Nicklas
  */
-@WebServlet(name = "LoginHandler", urlPatterns = {"/LoginHandler"})
-public class LoginHandler extends HttpServlet {
+@WebServlet(name = "AccountCreationHandler", urlPatterns = {"/AccountCreationHandler"})
+public class AccountCreationHandler extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -30,20 +30,26 @@ public class LoginHandler extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
         try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
             String username = request.getParameter("inputUsername");
-            String password = request.getParameter("inputPassword");
-            System.out.println("Username: " + username + " Password: " + password);
-
-            if (TempDatabase.getInstance().login(username, password) == true) {
-                response.sendRedirect("./InGame.jsp");
-            } else {
-                String error = "That username/password combination does not exist, try again!";
-                response.sendRedirect("./Login.jsp?error=" + error);
+            String password= request.getParameter("inputPassword");
+            String password2= request.getParameter("inputPassword2");
+            String email= request.getParameter("inputEmail");
+            String secretQuestion= request.getParameter("secretQuestion");
+            String secAnswer = request.getParameter("inputAnswer");
+            
+            if(!password.equals(password2)){
+                String serverResponse = "Error! Please re-enter your password.";
+                response.sendRedirect("./AccountCreation.jsp?response=" + serverResponse);
+            }else{
+                String serverResponse = TempDatabase.getInstance().addAccount(username, password, email, secretQuestion, secAnswer);
+                response.sendRedirect("./AccountCreation.jsp?response=" + serverResponse);
             }
+            
 
         }
     }
