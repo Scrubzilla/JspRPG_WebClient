@@ -9,39 +9,43 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="layout.css">
         <title>JspRPG Login</title>
     </head>
     <body>
+        <div id="header"></div>
         <center>
-            <h1>Login</h1>
-            <%
-                String error = request.getParameter("error");
+            <div id="main">
 
-                if (error != null) {
-                    out.println(error);
-                }
-            %>
+                <h1>Login</h1>
+                <%
+                    String error = request.getParameter("error");
 
-            <form action="LoginHandler" method="GET">  
-                <br>
-                Username 
-                <br>
-                <input type="text" name="inputUsername">
-                <br>
-                <br>
-                Password
-                <br>
-                <input type="password" name="inputPassword"/>
-                <br>
-                <br>
-                <a href="./PasswordRetrieval.jsp">Did you forget your password?</a>
-                <br>
-                <a href="./AccountCreation.jsp">Create a new account!</a>
-                <br>
-                <br>
-                <input type="submit" name="loginButton" value="Login"/>
-                <input type="submit" name="fakeAccount" value="FAKE!"/>
-            </form>
-        </center>
-    </body>
+                    if (error != null) {
+                        out.println(error);
+                    }
+                %>
+                <form action="LoginHandler" method="GET">  
+                    <br>
+                    Username 
+                    <br>
+                    <input type="text" name="inputUsername">
+                    <br>
+                    <br>
+                    Password
+                    <br>
+                    <input type="password" name="inputPassword"/>
+                    <br>
+                    <br>
+                    <a href="./PasswordRetrieval.jsp">Did you forget your password?</a>
+                    <br>
+                    <a href="./AccountCreation.jsp">Create a new account!</a>
+                    <br>
+                    <br>
+                    <input type="submit" name="loginButton" value="Login"/>
+                    <input type="submit" name="fakeAccount" value="FAKE!"/>
+                </form> 
+            </div>
+    </center>
+</body>
 </html>
