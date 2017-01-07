@@ -12,36 +12,36 @@
         <title>JspRPG Login</title>
     </head>
     <body>
-    <center>
-        <h1>Login</h1>
-        
-        <%
-            String error = request.getParameter("error");
+        <center>
+            <h1>Login</h1>
+            <%
+                String error = request.getParameter("error");
 
-            if (error != null) {
-                out.println(error);
-            }
-        %>
-        
-        <form action="LoginHandler" method="GET">  
-            <br>
-            Username 
-            <br>
-            <input type="text" name="inputUsername">
-            <br>
-            <br>
-            Password
-            <br>
-            <input type="password" name="inputPassword"/>
-            <br>
-            <br>
-            <a href="PasswordRetrieval.jsp">Did you forget your password?</a>
-            <br>
-            <a href="./AccountCreation.jsp">Create a new account!</a>
-            <br>
-            <br>
-            <input type="submit" name="loginButton" value="Login"/>
-        </form>
-    </center>
-</body>
+                if (error != null) {
+                    out.println(error);
+                }
+            %>
+
+            <form action="LoginHandler" method="GET">  
+                <br>
+                Username 
+                <br>
+                <input type="text" name="inputUsername">
+                <br>
+                <br>
+                Password
+                <br>
+                <input type="password" name="inputPassword"/>
+                <br>
+                <br>
+                <a href="./PasswordRetrieval.jsp">Did you forget your password?</a>
+                <br>
+                <a href="./AccountCreation.jsp">Create a new account!</a>
+                <br>
+                <br>
+                <input type="submit" name="loginButton" value="Login"/>
+                <input type="submit" name="fakeAccount" value="FAKE!"/>
+            </form>
+        </center>
+    </body>
 </html>

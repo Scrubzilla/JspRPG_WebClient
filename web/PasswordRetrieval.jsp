@@ -9,9 +9,16 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Password retrieval</title>
     </head>
     <body>
-        <h1>Password retrieval</h1>
+        <center>
+            <h1>Password retrieval</h1>
+            <br>
+            Input your email and a mail with a reset link will be sent to you if the email is bound to an account!
+            <br>
+            <br>
+            <input type="text" name="inputEmail"/>
+        </center>
     </body>
 </html>

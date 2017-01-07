@@ -45,7 +45,7 @@ public class TempDatabase {
         boolean checkEmail = false;
 
         if (checkUsernames(username) == true && checkEmail(email) == true) {
-            accounts.add(new Account(username, password, email, sq, sqanswer));
+            accounts.add(new Account(username, password, email, false, sq, sqanswer, 0));
             return "Account was created successfully!.";
         } else if (checkUsernames(username) == false && checkEmail(email) == true) {
             return "The username that you have entered is not valid or is already in use, try another one!";
@@ -54,6 +54,46 @@ public class TempDatabase {
         } else {
             return "The username and email that you have entered is not valid or is already in use, try another one!";
         }
+    }
+
+    public String changeEmail(String username, String oldEmail, String newEmail, String sqAnswer) {
+        for (int i = 0; i < accounts.size(); i++) {
+            if (username.equals(accounts.get(i).getUsername())) {
+                if (oldEmail.equals(accounts.get(i).getEmail()) && sqAnswer.equals(accounts.get(i).getSqanswer())) {
+                    accounts.get(i).setEmail(newEmail);
+                    return "Email was changed successfully!";
+                } else {
+                    return "The information provided was incorrect, try again!";
+                }
+            }
+        }
+        return "Something went wrong!";
+    }
+
+    public String changePassword(String username, String oldPassword, String newPassword) {
+        for (int i = 0; i < accounts.size(); i++) {
+            if (username.equals(accounts.get(i).getUsername())) {
+                if (oldPassword.equals(accounts.get(i).getPassword())) {
+                    accounts.get(i).setPassword(newPassword);
+                    return "Password was changed successfully!";
+                } else {
+                    return "The entered password was incorrect, try again!";
+                }
+
+            }
+        }
+
+        return "Something went wrong!";
+    }
+
+    public String getSecretQuestion(String username) {
+        for (int i = 0; i < accounts.size(); i++) {
+            if (username.equals(accounts.get(i).getUsername())) {
+                return accounts.get(i).getSq();
+            }
+        }
+        
+        return "Something went wrong!";
     }
 
     private boolean checkUsernames(String username) {
@@ -105,7 +145,7 @@ public class TempDatabase {
         String regex = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(email);
-        
+
         if (matcher.matches() == true) {
             isLegitEmail = true;
         } else {

@@ -5,7 +5,6 @@
  */
 package servlets;
 
-import database.TempDatabase;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -13,14 +12,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Nicklas
  */
-@WebServlet(name = "LoginHandler", urlPatterns = {"/LoginHandler"})
-public class LoginHandler extends HttpServlet {
+@WebServlet(name = "PasswordRetrieval", urlPatterns = {"/PasswordRetrieval"})
+public class PasswordRetrieval extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,27 +31,9 @@ public class LoginHandler extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
+        
         try (PrintWriter out = response.getWriter()) {
-
-            if (request.getParameter("fakeAccount") != null) {
-                String serverResponse = TempDatabase.getInstance().addAccount("Deebian", "gulbil123", "test@hotmail.com", "Favourite color is?", "Blue");
-                System.out.println(serverResponse);
-            } else {
-                String username = request.getParameter("inputUsername");
-                String password = request.getParameter("inputPassword");
-                System.out.println("Username: " + username + " Password: " + password);
-
-                HttpSession session = request.getSession(true);
-                session.setAttribute("username", username);
-
-                if (TempDatabase.getInstance().login(username, password) == true) {
-                    response.sendRedirect("./AccountManagement.jsp");
-                } else {
-                    String error = "That username/password combination does not exist, try again!";
-                    response.sendRedirect("./Login.jsp?error=" + error);
-                }
-            }
+        
         }
     }
 

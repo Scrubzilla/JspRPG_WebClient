@@ -19,8 +19,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author Nicklas
  */
-@WebServlet(name = "LoginHandler", urlPatterns = {"/LoginHandler"})
-public class LoginHandler extends HttpServlet {
+@WebServlet(name = "ChangeHandler", urlPatterns = {"/ChangeHandler"})
+public class ChangeHandler extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,29 +31,51 @@ public class LoginHandler extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
         try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
 
-            if (request.getParameter("fakeAccount") != null) {
-                String serverResponse = TempDatabase.getInstance().addAccount("Deebian", "gulbil123", "test@hotmail.com", "Favourite color is?", "Blue");
-                System.out.println(serverResponse);
-            } else {
-                String username = request.getParameter("inputUsername");
-                String password = request.getParameter("inputPassword");
-                System.out.println("Username: " + username + " Password: " + password);
+            String serverResponse = "";
+            HttpSession session = request.getSession(true);
+            String currentUser = (String) session.getAttribute("username");
+            System.out.println(currentUser);
 
-                HttpSession session = request.getSession(true);
-                session.setAttribute("username", username);
+            if (request.getParameter("submitPassword") != null) {
+                String oldPassword = request.getParameter("inputOldPassword");
+                String newPassword = request.getParameter("inputNewPassword");
+                String newPassword2 = request.getParameter("inputNewPassword2");
 
-                if (TempDatabase.getInstance().login(username, password) == true) {
-                    response.sendRedirect("./AccountManagement.jsp");
+                if (!newPassword.equals(newPassword2)) {
+                    serverResponse = "The new passwords does not match, try again!";
                 } else {
-                    String error = "That username/password combination does not exist, try again!";
-                    response.sendRedirect("./Login.jsp?error=" + error);
+                    serverResponse = TempDatabase.getInstance().changePassword(currentUser, oldPassword, newPassword);
                 }
+
+                response.sendRedirect("./AccountManagement.jsp?response=" + serverResponse);
+            } else if (request.getParameter("submitEmail") != null) {
+                String oldEmail = request.getParameter("inputOldEmail");
+                String newEmail = request.getParameter("inputNewEmail");
+                String newEmail2 = request.getParameter("inputNewEmail2");
+                String sqAnswer = request.getParameter("inputSqAnswer");
+
+                if (!newEmail.equals(newEmail2)) {
+                    serverResponse = "The new emails does not match, try again!";
+                }else{
+                    serverResponse = TempDatabase.getInstance().changeEmail(currentUser, oldEmail, newEmail, sqAnswer);
+                }
+
+                response.sendRedirect("./AccountManagement.jsp?response=" + serverResponse);
+
+            } else {
+
+                String secretQuestion = TempDatabase.getInstance().getSecretQuestion(currentUser);
+                response.setContentType("text/plain");
+                response.setCharacterEncoding("UTF-8");
+                response.getWriter().write(secretQuestion);
             }
+
         }
     }
 
