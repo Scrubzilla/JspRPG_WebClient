@@ -9,6 +9,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="layout.css">
         <title>JspRPG</title>
         <script>
             function addtxt(input, responseText) {
@@ -26,12 +27,12 @@
             $(document).ready(function () {                        
                 $('#submit').click(function (event) {  
                     var username = $('#user').val();
-                    $.get('GameHandler', {user: username}, function (responseText) {
+                    $.get('InGameHandler', {user: username}, function (responseText) {
                         var response = responseText;
                         alert(response.length);
                         
                         if(response.length < 10){
-                            addtxt('gameActions', responseText);
+                            addtxt('mainGame', responseText);
                         }
                     });
                 });
@@ -39,20 +40,27 @@
         </script>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <div id="header"></div>
         <center>
-            <textarea id="gameActions" rows="10" cols="100" readonly="readonly" >At w3schools.com you will learn how to make a website. We offer free tutorials in all web development technologies. </textarea>
+            <div id="main">
+            
+                <textarea id="mainGame" rows="30" cols="70" readonly="readonly" style="float: left;">At w3schools.com you will learn how to make a  </textarea> 
+                <textarea id="chatBox" rows="30" cols="30" readonly="readonly" style="float: right; clear: none; ">At w3schools.com you will learn how to make a  </textarea><br>
+                <br>
             <br>
             <br>
             <br>
-            <input type="text" name="password" size="98" placeholder="Input action"/>
+            <input type="text" name="password" size="30" placeholder="Input action"/>
             <input type="text" id="user"/>
+            <br>
+            <br>
             <input type="button" id="submit" value="Ajax Submit"/>
             <br>
             <% 
                 String userName = (String) session.getAttribute("username");
                 out.println(userName);
             %>
+            </div>
         </center>
     </body>
 </html>

@@ -9,16 +9,20 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="layout.css">
         <title>Password retrieval</title>
     </head>
     <body>
+        <div id="header"></div>
         <center>
-            <h1>Password retrieval</h1>
-            <br>
-            Input your email and a mail with a reset link will be sent to you if the email is bound to an account!
-            <br>
-            <br>
-            <input type="text" name="inputEmail"/>
+            <div id="main">
+                <h1>Password retrieval</h1>
+                <br>
+                Input your email and a mail with a reset link will be sent to you if the email is bound to an account!
+                <br>
+                <br>
+                <input type="text" name="inputEmail"/>
+            </div>
         </center>
     </body>
 </html>

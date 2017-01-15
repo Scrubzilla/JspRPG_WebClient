@@ -17,8 +17,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Nicklas
  */
-@WebServlet(name = "PasswordSelection", urlPatterns = {"/PasswordSelection"})
-public class PasswordSelection extends HttpServlet {
+@WebServlet(name = "PasswordSelectionHandler", urlPatterns = {"/PasswordSelectionHandler"})
+public class PasswordSelectionHandler extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>

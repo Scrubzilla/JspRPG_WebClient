@@ -37,16 +37,26 @@ public class LoginHandler extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
 
             if (request.getParameter("fakeAccount") != null) {
-                String serverResponse = TempDatabase.getInstance().addAccount("Deebian", "gulbil123", "test@hotmail.com", "Favourite color is?", "Blue");
-                System.out.println(serverResponse);
+                TempDatabase.getInstance().addAccount("Deebian", "gulbil123", "test@hotmail.com", "Favourite color is?", "Blue", false);
+                TempDatabase.getInstance().addAccount("Adminatus", "gulbil123", "test1@hotmail.com", "Favourite color is?", "Blue", true);
+                
+                TempDatabase.getInstance().addCharacter("Adminatus", "Herpules", 1, 1, 1, 1, 1, 1);
+                TempDatabase.getInstance().addCharacter("Derpinator", "Armando", 1, 1, 1, 1, 1, 1);
+                
             } else {
                 String username = request.getParameter("inputUsername");
                 String password = request.getParameter("inputPassword");
-                System.out.println("Username: " + username + " Password: " + password);
-
+                
+                String accountLevel = Integer.toString(TempDatabase.getInstance().getUserRole(username));
+                String isPremium = Boolean.toString(TempDatabase.getInstance().getIsPremium(username));
+                String hasCharacter = Boolean.toString(TempDatabase.getInstance().accountHasCharacter(username));
+                
                 HttpSession session = request.getSession(true);
                 session.setAttribute("username", username);
-
+                session.setAttribute("accountLevel", accountLevel);
+                session.setAttribute("isPremium", isPremium);
+                session.setAttribute("hasCharacter", hasCharacter);
+                
                 if (TempDatabase.getInstance().login(username, password) == true) {
                     response.sendRedirect("./AccountManagement.jsp");
                 } else {

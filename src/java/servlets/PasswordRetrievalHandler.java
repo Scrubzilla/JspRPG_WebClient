@@ -17,8 +17,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Nicklas
  */
-@WebServlet(name = "GameHandler", urlPatterns = {"/GameHandler"})
-public class GameHandler extends HttpServlet {
+@WebServlet(name = "PasswordRetrievalHandler", urlPatterns = {"/PasswordRetrievalHandler"})
+public class PasswordRetrievalHandler extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,15 +33,7 @@ public class GameHandler extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            String name = null;
-            name = "Hello " + request.getParameter("user");
-            if (request.getParameter("user").toString().equals("")) {
-                name = "Hello User";
-            }
-            response.setContentType("text/plain"); 
-            response.setCharacterEncoding("UTF-8");
-            response.getWriter().write(name);
+        
         }
     }
 

@@ -19,8 +19,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author Nicklas
  */
-@WebServlet(name = "ChangeHandler", urlPatterns = {"/ChangeHandler"})
-public class ChangeHandler extends HttpServlet {
+@WebServlet(name = "AccountManagementHandler", urlPatterns = {"/AccountManagementHandler"})
+public class AccountManagementHandler extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,7 +42,19 @@ public class ChangeHandler extends HttpServlet {
             String currentUser = (String) session.getAttribute("username");
             System.out.println(currentUser);
 
-            if (request.getParameter("submitPassword") != null) {
+            if (request.getParameter("playGameBut") != null) {
+                response.sendRedirect("./InGame.jsp");
+            }
+            else if (request.getParameter("createCharacterBut") != null) {
+                response.sendRedirect("./CharacterCreation.jsp");
+            }
+            else if (request.getParameter("seePremiumBut") != null) {
+                
+            }
+            else if (request.getParameter("becomePremiumBut") != null) {
+                            
+            }
+            else if (request.getParameter("submitPasswordBut") != null) {
                 String oldPassword = request.getParameter("inputOldPassword");
                 String newPassword = request.getParameter("inputNewPassword");
                 String newPassword2 = request.getParameter("inputNewPassword2");
@@ -54,7 +66,7 @@ public class ChangeHandler extends HttpServlet {
                 }
 
                 response.sendRedirect("./AccountManagement.jsp?response=" + serverResponse);
-            } else if (request.getParameter("submitEmail") != null) {
+            } else if (request.getParameter("submitEmailBut") != null) {
                 String oldEmail = request.getParameter("inputOldEmail");
                 String newEmail = request.getParameter("inputNewEmail");
                 String newEmail2 = request.getParameter("inputNewEmail2");
@@ -69,7 +81,6 @@ public class ChangeHandler extends HttpServlet {
                 response.sendRedirect("./AccountManagement.jsp?response=" + serverResponse);
 
             } else {
-
                 String secretQuestion = TempDatabase.getInstance().getSecretQuestion(currentUser);
                 response.setContentType("text/plain");
                 response.setCharacterEncoding("UTF-8");

@@ -13,13 +13,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Nicklas
  */
-@WebServlet(name = "AccountCreationHandler", urlPatterns = {"/AccountCreationHandler"})
-public class AccountCreationHandler extends HttpServlet {
+@WebServlet(name = "CharacterCreationHandler", urlPatterns = {"/CharacterCreationHandler"})
+public class CharacterCreationHandler extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,25 +33,32 @@ public class AccountCreationHandler extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            String username = request.getParameter("inputUsername");
-            String password= request.getParameter("inputPassword");
-            String password2= request.getParameter("inputPassword2");
-            String email= request.getParameter("inputEmail");
-            String secretQuestion= request.getParameter("secretQuestion");
-            String secAnswer = request.getParameter("inputAnswer");
-            
-            if(!password.equals(password2)){
-                String serverResponse = "Error! Please re-enter your password.";
-                response.sendRedirect("./AccountCreation.jsp?response=" + serverResponse);
-            }else{
-                String serverResponse = TempDatabase.getInstance().addAccount(username, password, email, secretQuestion, secAnswer, false);
-                response.sendRedirect("./AccountCreation.jsp?response=" + serverResponse);
-            }
-            
+            if (request.getParameter("createCharacterBut") != null) {
 
+                HttpSession session = request.getSession(true);
+                String currentUser = (String) session.getAttribute("username");
+                
+                String name = request.getParameter("characterName");
+                int str = Integer.parseInt(request.getParameter("strValue"));
+                int dex = Integer.parseInt(request.getParameter("dexValue"));
+                int vit = Integer.parseInt(request.getParameter("vitValue"));
+                int inte = Integer.parseInt(request.getParameter("inteValue"));
+                int wis = Integer.parseInt(request.getParameter("wisValue"));
+                int cha = Integer.parseInt(request.getParameter("chaValue"));
+
+                String serverResponse = TempDatabase.getInstance().addCharacter(currentUser, name, str, dex, vit, inte, wis, cha);
+                if(serverResponse.equals("Character was created successfully!")){
+                    String hasCharacter = Boolean.toString(TempDatabase.getInstance().accountHasCharacter(currentUser));
+                    session.setAttribute("hasCharacter", hasCharacter);
+                    response.sendRedirect("./AccountManagement.jsp?response=" + serverResponse);
+                }else{
+                    response.sendRedirect("./CharacterCreation.jsp?response=" + serverResponse);
+                }
+                
+            }
         }
     }
 

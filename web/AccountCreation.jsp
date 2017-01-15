@@ -9,10 +9,13 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="layout.css">
         <title>JSP Page</title>
     </head>
     <body>
+        <div id="header"></div>
         <center>
+            <div id="main">
             <h1>Account creation</h1>
             <form action="AccountCreationHandler" method="GET">  
                 <br>
@@ -64,6 +67,7 @@
                 <br>
                 <input type="submit" name="createButton" value="Create account"/>
             </form>
+                </div>
         </center>
     </body>
 </html>

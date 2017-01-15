@@ -8,35 +8,58 @@ and open the template in the editor.
     Author     : Nicklas
 */
 
-
+/*
 #header{
-    background-image: url('./images/header2.jpg');
+    background-image: url('./images/header3.jpg');
     background-repeat: no-repeat;
     background-position: center top;
     height: 260px;
     min-width: 100%;
     border:none;
 }
+*/
+#header{
+    background-image: url('./images/header5.jpg');
+    background-repeat: no-repeat;
+    background-position: center top;
+    height: 180px;
+    width: 900px;
+    border:none;
+    margin-left:auto;
+    margin-right:auto;
+    border-style: inset;
+    border-width: 3px;
+    border-color: black;
+}
+
+#buttonBox{
+    height: 50px;
+    width: 895px;
+    border-style: inset;
+    border-width: 3px;
+    border-color: black;
+}
+
 
 #main{
-    background-color: black;
     height: 700px;
     width: 900px;
+    background-image: url('./images/text-background1.png');
+    background-repeat: no-repeat;
+    background-size:100% 100%;
     color:white;
-
     border-style: inset;
-    border-width: 2px;
-    border-color: white;
-    
+    border-width: 3px;
+    border-color: black;
+
 }
 
 body{
-  margin: 0; 
-  padding: 0;
-  background-image: url('./images/background1.jpg');
-  background-size:cover;
-  background-position:center;
-  
+    margin: 0; 
+    padding: 0;
+    background-image: url('./images/background2.jpg');
+    background-size:cover;
+    background-position:center;
 }
 
 

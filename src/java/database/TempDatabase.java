@@ -17,6 +17,7 @@ public class TempDatabase {
 
     private static TempDatabase tempDatabase;
     private ArrayList<Account> accounts = new ArrayList<>();
+    private ArrayList<Character> characters = new ArrayList<>();
 
     private TempDatabase() {
 
@@ -40,12 +41,12 @@ public class TempDatabase {
         return false;
     }
 
-    public String addAccount(String username, String password, String email, String sq, String sqanswer) {
+    public String addAccount(String username, String password, String email, String sq, String sqanswer, boolean isPremium) {
         boolean checkUsername = false;
         boolean checkEmail = false;
 
         if (checkUsernames(username) == true && checkEmail(email) == true) {
-            accounts.add(new Account(username, password, email, false, sq, sqanswer, 0));
+            accounts.add(new Account(username, password, email, isPremium, sq, sqanswer, 0));
             return "Account was created successfully!.";
         } else if (checkUsernames(username) == false && checkEmail(email) == true) {
             return "The username that you have entered is not valid or is already in use, try another one!";
@@ -54,6 +55,69 @@ public class TempDatabase {
         } else {
             return "The username and email that you have entered is not valid or is already in use, try another one!";
         }
+    }
+
+    public String addCharacter(String accountName, String name, int str, int dex, int vit, int inte, int wis, int cha) {
+        boolean isNotUsed = false;
+        boolean isValidLength = false;
+        boolean containsNumbers = false;
+
+        if (characters.size() > 0) {
+            for (int i = 0; i < characters.size(); i++) {
+                if (!characters.get(i).getName().equals(name)) {
+                    isNotUsed = true;
+                } else {
+                    isNotUsed = false;
+                    break;
+                }
+            }
+        } else {
+            isNotUsed = true;
+        }
+
+        if (name.length() >= 5 && name.length() <= 15) {
+            isValidLength = true;
+        }
+
+        if (name.matches(".*\\d.*")) {
+            System.out.println("Contains a number!");
+            containsNumbers = true;
+        } else {
+            System.out.println("Does not contain a number!");
+            containsNumbers = false;
+        }
+
+        if (isNotUsed == false) {
+            return "The username is already in use, try another one!";
+        } else if (isValidLength == false) {
+            return "The username does not have a valid length, please enter another one!";
+        } else if (containsNumbers == true) {
+            return "The username contains numbers which is not allowed!!";
+        } else if (isNotUsed == true && isValidLength == true && containsNumbers == false) {
+            characters.add(new Character(accountName, name, 0, 0, 0, str, dex, vit, inte, wis, cha));
+            
+            for (int i = 0; i < characters.size(); i++) {
+                System.out.println(characters.get(i).getName());
+            }
+            
+            return "Character was created successfully!";
+
+        } else {
+            return "Something went wrong!";
+        }
+    }
+    
+    public boolean accountHasCharacter(String accountName){
+        boolean result = false;
+        
+        for(int i = 0; i < characters.size(); i++){
+            if(accountName.equals(characters.get(i).getAccountName())){
+                result = true;
+                break;
+            }
+        }
+        
+        return result;
     }
 
     public String changeEmail(String username, String oldEmail, String newEmail, String sqAnswer) {
@@ -92,8 +156,34 @@ public class TempDatabase {
                 return accounts.get(i).getSq();
             }
         }
-        
+
         return "Something went wrong!";
+    }
+
+    public boolean getIsPremium(String username) {
+        boolean result = false;
+
+        for (int i = 0; i < accounts.size(); i++) {
+            if (username.equals(accounts.get(i).getUsername())) {
+                result = accounts.get(i).isIsPremium();
+                break;
+            }
+        }
+
+        return result;
+    }
+
+    public int getUserRole(String username) {
+        int result = 0;
+
+        for (int i = 0; i < accounts.size(); i++) {
+            if (username.equals(accounts.get(i).getUsername())) {
+                result = accounts.get(i).getAccountLevel();
+                break;
+            }
+        }
+
+        return result;
     }
 
     private boolean checkUsernames(String username) {

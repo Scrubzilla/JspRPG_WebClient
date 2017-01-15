@@ -16,7 +16,6 @@
         <div id="header"></div>
         <center>
             <div id="main">
-
                 <h1>Login</h1>
                 <%
                     String error = request.getParameter("error");
@@ -44,7 +43,7 @@
                     <br>
                     <input type="submit" name="loginButton" value="Login"/>
                     <input type="submit" name="fakeAccount" value="FAKE!"/>
-                </form> 
+                </form>
             </div>
     </center>
 </body>
