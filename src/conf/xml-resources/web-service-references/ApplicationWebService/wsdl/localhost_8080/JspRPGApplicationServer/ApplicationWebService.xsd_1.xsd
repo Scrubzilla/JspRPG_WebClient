@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8'?><!-- Published by JAX-WS RI (http://jax-ws.java.net). RI's version is Metro/2.3.1-b419 (branches/2.3.1.x-7937; 2014-08-04T08:11:03+0000) JAXWS-RI/2.2.10-b140803.1500 JAXWS-API/2.2.11 JAXB-RI/2.2.10-b140802.1033 JAXB-API/2.2.12-b140109.1041 svn-revision#unknown. --><xs:schema xmlns:tns="http://WS/" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://WS/">
+
+<xs:element name="addAccount" type="tns:addAccount"/>
+
+<xs:element name="addAccountResponse" type="tns:addAccountResponse"/>
+
+<xs:element name="addCharacter" type="tns:addCharacter"/>
+
+<xs:element name="addCharacterResponse" type="tns:addCharacterResponse"/>
+
+<xs:element name="changePassword" type="tns:changePassword"/>
+
+<xs:element name="changePasswordResponse" type="tns:changePasswordResponse"/>
+
+<xs:element name="checkSecurityAnswer" type="tns:checkSecurityAnswer"/>
+
+<xs:element name="checkSecurityAnswerResponse" type="tns:checkSecurityAnswerResponse"/>
+
+<xs:element name="getSecurityQuestion" type="tns:getSecurityQuestion"/>
+
+<xs:element name="getSecurityQuestionResponse" type="tns:getSecurityQuestionResponse"/>
+
+<xs:element name="logInCredentials" type="tns:logInCredentials"/>
+
+<xs:element name="logInCredentialsResponse" type="tns:logInCredentialsResponse"/>
+
+<xs:complexType name="addAccount">
+<xs:sequence>
+<xs:element name="username" type="xs:string" minOccurs="0"/>
+<xs:element name="password" type="xs:string" minOccurs="0"/>
+<xs:element name="eMail" type="xs:string" minOccurs="0"/>
+<xs:element name="securityQ" type="xs:string" minOccurs="0"/>
+<xs:element name="securityQans" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="addAccountResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="logInCredentials">
+<xs:sequence>
+<xs:element name="username" type="xs:string" minOccurs="0"/>
+<xs:element name="password" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="logInCredentialsResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="changePassword">
+<xs:sequence>
+<xs:element name="username" type="xs:string" minOccurs="0"/>
+<xs:element name="newPassword" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="changePasswordResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="checkSecurityAnswer">
+<xs:sequence>
+<xs:element name="username" type="xs:string" minOccurs="0"/>
+<xs:element name="answer" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="checkSecurityAnswerResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="addCharacter">
+<xs:sequence>
+<xs:element name="name" type="xs:string" minOccurs="0"/>
+<xs:element name="portrait" type="xs:int"/>
+<xs:element name="str" type="xs:int"/>
+<xs:element name="dex" type="xs:int"/>
+<xs:element name="vit" type="xs:int"/>
+<xs:element name="intell" type="xs:int"/>
+<xs:element name="wis" type="xs:int"/>
+<xs:element name="chr" type="xs:int"/>
+<xs:element name="accountName" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="addCharacterResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getSecurityQuestion">
+<xs:sequence>
+<xs:element name="username" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getSecurityQuestionResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+</xs:schema>

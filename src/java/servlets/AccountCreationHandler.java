@@ -13,6 +13,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.ws.WebServiceRef;
+import ws.ApplicationWebService_Service;
 
 /**
  *
@@ -20,6 +22,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "AccountCreationHandler", urlPatterns = {"/AccountCreationHandler"})
 public class AccountCreationHandler extends HttpServlet {
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8080/JspRPGApplicationServer/ApplicationWebService.wsdl")
+    private ApplicationWebService_Service service;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -46,13 +50,18 @@ public class AccountCreationHandler extends HttpServlet {
                 String serverResponse = "Error! Please re-enter your password.";
                 response.sendRedirect("./AccountCreation.jsp?response=" + serverResponse);
             }else{
-                String serverResponse = TempDatabase.getInstance().addAccount(username, password, email, secretQuestion, secAnswer, false);
+                //String serverResponse = TempDatabase.getInstance().addAccount(username, password, email, secretQuestion, secAnswer, false);
+                String serverResponse = addAccount(username, password, email, secretQuestion, secAnswer);
                 response.sendRedirect("./AccountCreation.jsp?response=" + serverResponse);
             }
             
 
         }
     }
+    
+    
+    
+    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -92,5 +101,13 @@ public class AccountCreationHandler extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    private String addAccount(java.lang.String username, java.lang.String password, java.lang.String eMail, java.lang.String securityQ, java.lang.String securityQans) {
+        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+        // If the calling of port operations may lead to race condition some synchronization is required.
+        ws.ApplicationWebService port = service.getApplicationWebServicePort();
+        return port.addAccount(username, password, eMail, securityQ, securityQans);
+    }
+
 
 }

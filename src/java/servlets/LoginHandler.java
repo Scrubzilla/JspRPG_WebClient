@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.xml.ws.WebServiceRef;
+import ws.ApplicationWebService_Service;
 
 /**
  *
@@ -21,6 +23,9 @@ import javax.servlet.http.HttpSession;
  */
 @WebServlet(name = "LoginHandler", urlPatterns = {"/LoginHandler"})
 public class LoginHandler extends HttpServlet {
+
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8080/JspRPGApplicationServer/ApplicationWebService.wsdl")
+    private ApplicationWebService_Service service;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,33 +44,33 @@ public class LoginHandler extends HttpServlet {
             if (request.getParameter("fakeAccount") != null) {
                 TempDatabase.getInstance().addAccount("Deebian", "gulbil123", "test@hotmail.com", "Favourite color is?", "Blue", false);
                 TempDatabase.getInstance().addAccount("Adminatus", "gulbil123", "test1@hotmail.com", "Favourite color is?", "Blue", true);
-                
+
                 TempDatabase.getInstance().addCharacter("Adminatus", "Herpules", 1, 1, 1, 1, 1, 1);
                 TempDatabase.getInstance().addCharacter("Derpinator", "Armando", 1, 1, 1, 1, 1, 1);
             } else {
                 String username = request.getParameter("inputUsername");
                 String password = request.getParameter("inputPassword");
-                
-                int tempAccountLevel = TempDatabase.getInstance().getUserRole(username);
-                String accountLevel = "Standard";
-                
-                if(tempAccountLevel == 2){
-                    accountLevel = "Admin";
-                }
-                else if(tempAccountLevel == 1){
-                    accountLevel = "Premium";
-                }
-                
-                String isPremium = Boolean.toString(TempDatabase.getInstance().getIsPremium(username));
-                String hasCharacter = Boolean.toString(TempDatabase.getInstance().accountHasCharacter(username));
-                
-                HttpSession session = request.getSession(true);
-                session.setAttribute("username", username);
-                session.setAttribute("accountLevel", accountLevel);
-                session.setAttribute("isPremium", isPremium);
-                session.setAttribute("hasCharacter", hasCharacter);
-                
-                if (TempDatabase.getInstance().login(username, password) == true) {
+
+                if (!logInCredentials(username, password).equals("0")) {
+
+                    int tempAccountLevel = TempDatabase.getInstance().getUserRole(username);
+                    String accountLevel = "Standard";
+
+                    if (tempAccountLevel == 2) {
+                        accountLevel = "Admin";
+                    } else if (tempAccountLevel == 1) {
+                        accountLevel = "Premium";
+                    }
+
+                    String isPremium = Boolean.toString(TempDatabase.getInstance().getIsPremium(username));
+                    String hasCharacter = Boolean.toString(TempDatabase.getInstance().accountHasCharacter(username));
+
+                    HttpSession session = request.getSession(true);
+                    session.setAttribute("username", username);
+                    session.setAttribute("accountLevel", accountLevel);
+                    session.setAttribute("isPremium", isPremium);
+                    session.setAttribute("hasCharacter", hasCharacter);
+                    
                     response.sendRedirect("./AccountManagement.jsp");
                 } else {
                     String error = "That username/password combination does not exist, try again!";
@@ -113,5 +118,12 @@ public class LoginHandler extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    private String logInCredentials(java.lang.String username, java.lang.String password) {
+        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+        // If the calling of port operations may lead to race condition some synchronization is required.
+        ws.ApplicationWebService port = service.getApplicationWebServicePort();
+        return port.logInCredentials(username, password);
+    }
 
 }
