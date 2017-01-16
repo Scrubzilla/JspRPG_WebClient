@@ -12,9 +12,21 @@
 
 <xs:element name="changePasswordResponse" type="tns:changePasswordResponse"/>
 
+<xs:element name="checkCharacterFromUsername" type="tns:checkCharacterFromUsername"/>
+
+<xs:element name="checkCharacterFromUsernameResponse" type="tns:checkCharacterFromUsernameResponse"/>
+
 <xs:element name="checkSecurityAnswer" type="tns:checkSecurityAnswer"/>
 
 <xs:element name="checkSecurityAnswerResponse" type="tns:checkSecurityAnswerResponse"/>
+
+<xs:element name="forgotPassword" type="tns:forgotPassword"/>
+
+<xs:element name="forgotPasswordResponse" type="tns:forgotPasswordResponse"/>
+
+<xs:element name="getRoleFromAccount" type="tns:getRoleFromAccount"/>
+
+<xs:element name="getRoleFromAccountResponse" type="tns:getRoleFromAccountResponse"/>
 
 <xs:element name="getSecurityQuestion" type="tns:getSecurityQuestion"/>
 
@@ -37,6 +49,18 @@
 <xs:complexType name="addAccountResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="checkCharacterFromUsername">
+<xs:sequence>
+<xs:element name="username" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="checkCharacterFromUsernameResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean"/>
 </xs:sequence>
 </xs:complexType>
 
@@ -81,6 +105,7 @@
 
 <xs:complexType name="addCharacter">
 <xs:sequence>
+<xs:element name="username" type="xs:string" minOccurs="0"/>
 <xs:element name="name" type="xs:string" minOccurs="0"/>
 <xs:element name="portrait" type="xs:int"/>
 <xs:element name="str" type="xs:int"/>
@@ -89,7 +114,6 @@
 <xs:element name="intell" type="xs:int"/>
 <xs:element name="wis" type="xs:int"/>
 <xs:element name="chr" type="xs:int"/>
-<xs:element name="accountName" type="xs:string" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
@@ -106,6 +130,30 @@
 </xs:complexType>
 
 <xs:complexType name="getSecurityQuestionResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="forgotPassword">
+<xs:sequence>
+<xs:element name="eMail" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="forgotPasswordResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getRoleFromAccount">
+<xs:sequence>
+<xs:element name="username" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getRoleFromAccountResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:string" minOccurs="0"/>
 </xs:sequence>

@@ -13,6 +13,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.ws.WebServiceRef;
+import ws.ApplicationWebService_Service;
 
 /**
  *
@@ -20,6 +22,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "PasswordRetrievalHandler", urlPatterns = {"/PasswordRetrievalHandler"})
 public class PasswordRetrievalHandler extends HttpServlet {
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8080/JspRPGApplicationServer/ApplicationWebService.wsdl")
+    private ApplicationWebService_Service service;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,7 +39,8 @@ public class PasswordRetrievalHandler extends HttpServlet {
 
         try (PrintWriter out = response.getWriter()) {
             String email = request.getParameter("inputEmail");
-            boolean mailStatus = TempDatabase.getInstance().sendPasswordResetMail(email);
+            //boolean mailStatus = TempDatabase.getInstance().sendPasswordResetMail(email);
+            boolean mailStatus = forgotPassword(email);
             
             String serverResponse;
             
@@ -90,5 +95,12 @@ public class PasswordRetrievalHandler extends HttpServlet {
         public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    private boolean forgotPassword(java.lang.String eMail) {
+        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+        // If the calling of port operations may lead to race condition some synchronization is required.
+        ws.ApplicationWebService port = service.getApplicationWebServicePort();
+        return port.forgotPassword(eMail);
+    }
 
 }

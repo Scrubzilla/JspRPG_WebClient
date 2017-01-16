@@ -53,17 +53,21 @@ public class LoginHandler extends HttpServlet {
 
                 if (!logInCredentials(username, password).equals("0")) {
 
-                    int tempAccountLevel = TempDatabase.getInstance().getUserRole(username);
-                    String accountLevel = "Standard";
-
-                    if (tempAccountLevel == 2) {
+                    String accountLevel = getRoleFromAccount(username);
+                    String isPremium = "false";
+                    
+                    if(accountLevel.equals("2")){
                         accountLevel = "Admin";
-                    } else if (tempAccountLevel == 1) {
+                        isPremium = "true";
+                    }else if(accountLevel.equals("1")){
                         accountLevel = "Premium";
+                        isPremium = "true";
+                    }else if(accountLevel.equals("0")){
+                        accountLevel = "Standard";
+                        isPremium = "false";
                     }
 
-                    String isPremium = Boolean.toString(TempDatabase.getInstance().getIsPremium(username));
-                    String hasCharacter = Boolean.toString(TempDatabase.getInstance().accountHasCharacter(username));
+                    String hasCharacter = Boolean.toString(checkCharacterFromUsername(username));
 
                     HttpSession session = request.getSession(true);
                     session.setAttribute("username", username);
@@ -125,5 +129,21 @@ public class LoginHandler extends HttpServlet {
         ws.ApplicationWebService port = service.getApplicationWebServicePort();
         return port.logInCredentials(username, password);
     }
+
+    private String getRoleFromAccount(java.lang.String username) {
+        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+        // If the calling of port operations may lead to race condition some synchronization is required.
+        ws.ApplicationWebService port = service.getApplicationWebServicePort();
+        return port.getRoleFromAccount(username);
+    }
+
+    private boolean checkCharacterFromUsername(java.lang.String username) {
+        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+        // If the calling of port operations may lead to race condition some synchronization is required.
+        ws.ApplicationWebService port = service.getApplicationWebServicePort();
+        return port.checkCharacterFromUsername(username);
+    }
+    
+    
 
 }

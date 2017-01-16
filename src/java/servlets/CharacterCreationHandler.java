@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.xml.ws.WebServiceRef;
+import ws.ApplicationWebService_Service;
 
 /**
  *
@@ -21,6 +23,9 @@ import javax.servlet.http.HttpSession;
  */
 @WebServlet(name = "CharacterCreationHandler", urlPatterns = {"/CharacterCreationHandler"})
 public class CharacterCreationHandler extends HttpServlet {
+
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8080/JspRPGApplicationServer/ApplicationWebService.wsdl")
+    private ApplicationWebService_Service service;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,7 +45,7 @@ public class CharacterCreationHandler extends HttpServlet {
 
                 HttpSession session = request.getSession(true);
                 String currentUser = (String) session.getAttribute("username");
-                
+
                 String name = request.getParameter("characterName");
                 int str = Integer.parseInt(request.getParameter("strValue"));
                 int dex = Integer.parseInt(request.getParameter("dexValue"));
@@ -49,15 +54,18 @@ public class CharacterCreationHandler extends HttpServlet {
                 int wis = Integer.parseInt(request.getParameter("wisValue"));
                 int cha = Integer.parseInt(request.getParameter("chaValue"));
 
-                String serverResponse = TempDatabase.getInstance().addCharacter(currentUser, name, str, dex, vit, inte, wis, cha);
-                if(serverResponse.equals("Character was created successfully!")){
-                    String hasCharacter = Boolean.toString(TempDatabase.getInstance().accountHasCharacter(currentUser));
+                //String serverResponse = TempDatabase.getInstance().addCharacter(currentUser, name, str, dex, vit, inte, wis, cha);
+                String serverResponse = addCharacter(currentUser, name, 0, str, dex, vit, inte, wis, cha);
+                if (serverResponse.equals("Character was created successfully!")) {
+                   // String hasCharacter = Boolean.toString(TempDatabase.getInstance().accountHasCharacter(currentUser));
+                    String hasCharacter = Boolean.toString(checkCharacterFromUsername(currentUser));
+
                     session.setAttribute("hasCharacter", hasCharacter);
                     response.sendRedirect("./AccountManagement.jsp?response=" + serverResponse);
-                }else{
+                } else {
                     response.sendRedirect("./CharacterCreation.jsp?response=" + serverResponse);
                 }
-                
+
             }
         }
     }
@@ -100,5 +108,19 @@ public class CharacterCreationHandler extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    private String addCharacter(java.lang.String username, java.lang.String name, int portrait, int str, int dex, int vit, int intell, int wis, int chr) {
+        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+        // If the calling of port operations may lead to race condition some synchronization is required.
+        ws.ApplicationWebService port = service.getApplicationWebServicePort();
+        return port.addCharacter(username, name, portrait, str, dex, vit, intell, wis, chr);
+    }
+
+    private boolean checkCharacterFromUsername(java.lang.String username) {
+        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+        // If the calling of port operations may lead to race condition some synchronization is required.
+        ws.ApplicationWebService port = service.getApplicationWebServicePort();
+        return port.checkCharacterFromUsername(username);
+    }
 
 }
