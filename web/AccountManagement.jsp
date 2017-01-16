@@ -38,7 +38,7 @@
                     String userRole = (String) session.getAttribute("accountLevel");
                     String isPremium = (String) session.getAttribute("isPremium");
                     String hasCharacter = (String) session.getAttribute("hasCharacter");
-                    out.println("Logged in as: " + currentUser);
+                    out.println("<B> Logged in as: </B>" + currentUser + "&nbsp &nbsp &nbsp &nbsp &nbsp<B> Account Status: </B>" + userRole);
                 %>
                 
                 <form action="AccountManagementHandler" method="GET"> 
@@ -61,7 +61,7 @@
                     <br>
                     <input type="button" id="resetPasswordBut" name="changePasswordBut" value="Change password" style="height:20px; width:144px"/>
                     <input type="button" id="resetEmailBut" name="changeEmailBut" value="Change your email" style="height:20px; width:144px"/>
-
+                    
                     <div id="resetPassword" hidden>
                         <br>
                         Old password
@@ -110,8 +110,12 @@
                         <br>
                         <br>
                     </div>
-                </form>
                     <br>
+                    <br>
+                    <br>
+                    <input type="submit" name="logoutBut" value="Logout"/>
+                </form>
+                <br>
                 <%
                     String serverResponse = request.getParameter("response");
 

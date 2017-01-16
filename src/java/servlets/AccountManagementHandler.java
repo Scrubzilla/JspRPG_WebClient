@@ -54,6 +54,9 @@ public class AccountManagementHandler extends HttpServlet {
             else if (request.getParameter("becomePremiumBut") != null) {
                             
             }
+            else if (request.getParameter("logoutBut") != null) {
+                response.sendRedirect("./Login.jsp");
+            }
             else if (request.getParameter("submitPasswordBut") != null) {
                 String oldPassword = request.getParameter("inputOldPassword");
                 String newPassword = request.getParameter("inputNewPassword");

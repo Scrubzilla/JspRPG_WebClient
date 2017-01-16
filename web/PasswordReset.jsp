@@ -1,6 +1,6 @@
 <%-- 
-    Document   : PasswordRetrieval
-    Created on : 2016-dec-29, 19:30:31
+    Document   : PasswordSelect
+    Created on : 2017-jan-06, 00:36:36
     Author     : Nicklas
 --%>
 
@@ -10,21 +10,28 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="layout.css">
-        <title>Password retrieval</title>
+        <title>Password reset</title>
     </head>
     <body>
         <div id="header"></div>
         <center>
             <div id="main">
-                <h1>Password retrieval</h1>
-                Input your email and a mail with a reset link will be sent to you if the email is bound to an account!
+                <h1>Password reset</h1>
+                Input your new password two times and it will be reset and you will once again be able to login to JspRPG.
                 <br>
                 <br>
-                <form action="PasswordRetrievalHandler" method="GET">  
+                <form action="PasswordResetHandler" method="GET">  
+                    Input password
+                    <br>
                     <input type="text" name="inputEmail"/>
                     <br>
                     <br>
-                    <input type="submit" name="passRetrievalBut" value="Send"/>
+                    Input password again
+                    <br>
+                    <input type="text" name="inputEmail"/>
+                    <br>
+                    <br>
+                    <input type="submit" name="passResetBut" value="Reset"/>
                 </form>
                 <br>
                 <br>

@@ -25,14 +25,25 @@
 
         <script>
             $(document).ready(function () {                        
-                $('#submit').click(function (event) {  
-                    var username = $('#user').val();
-                    $.get('InGameHandler', {user: username}, function (responseText) {
+                $('#commandBut').click(function (event) {  
+                    var gameCommand = $('#commandField').val();
+                    
+                    $.get('InGameHandler', {command: gameCommand}, function (responseText) {
                         var response = responseText;
-                        alert(response.length);
                         
                         if(response.length < 10){
                             addtxt('mainGame', responseText);
+                        }
+                    });
+                });
+                $('#messageBut').click(function (event) {  
+                    var chatMessage = $('#messageField').val();
+                    
+                    $.get('InGameHandler', {message: chatMessage}, function (responseText) {
+                        var response = responseText;
+                        
+                        if(response.length < 10){
+                            addtxt('chatBox', responseText);
                         }
                     });
                 });
@@ -43,23 +54,28 @@
         <div id="header"></div>
         <center>
             <div id="main">
-            
-                <textarea id="mainGame" rows="30" cols="70" readonly="readonly" style="float: left;">At w3schools.com you will learn how to make a  </textarea> 
-                <textarea id="chatBox" rows="30" cols="30" readonly="readonly" style="float: right; clear: none; ">At w3schools.com you will learn how to make a  </textarea><br>
                 <br>
-            <br>
-            <br>
-            <br>
-            <input type="text" name="password" size="30" placeholder="Input action"/>
-            <input type="text" id="user"/>
-            <br>
-            <br>
-            <input type="button" id="submit" value="Ajax Submit"/>
-            <br>
-            <% 
-                String userName = (String) session.getAttribute("username");
-                out.println(userName);
-            %>
+                <div id="gameLeft" style="float: left;">
+                    <h3>Gamescreen</h3>
+                    <textarea id="mainGame" rows="30" cols="83" readonly="readonly" style="margin-left: 5px; overflow:auto; resize:none"></textarea> 
+                    <br>
+                    <br>
+                    <input type="text" name="commandField" size="74" placeholder="Input action"/>
+                    <input type="button" id="commandBut" value="Send"/>
+                </div>
+                
+                <div id="gameLeft" style="float: right;">
+                    <h3>Chat</h3>
+                    <textarea id="chatBox" rows="30" cols="35" readonly="readonly" style="margin-right: 2px; overflow:auto; resize:none"></textarea>
+                    <br>
+                    <br>
+                    <input type="text" id="messageField" size="27" placeholder="Input message" />
+                    <input type="button" id="messageBut" value="Chat" style="margin-right: 3px;"/>
+                </div>
+                
+                <form action="InGameHandler" method="GET">
+                    <input type="submit" id="backToAccountBut" name="backToAccountBut" value="Back to account management" style="margin-top:40px;"/>
+                </form>
             </div>
         </center>
     </body>

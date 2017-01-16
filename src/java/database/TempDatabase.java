@@ -6,8 +6,16 @@
 package database;
 
 import java.util.ArrayList;
+import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import javax.mail.Address;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 /**
  *
@@ -47,6 +55,7 @@ public class TempDatabase {
 
         if (checkUsernames(username) == true && checkEmail(email) == true) {
             accounts.add(new Account(username, password, email, isPremium, sq, sqanswer, 0));
+            //sendRegisterConfirmMail(email, username);
             return "Account was created successfully!.";
         } else if (checkUsernames(username) == false && checkEmail(email) == true) {
             return "The username that you have entered is not valid or is already in use, try another one!";
@@ -95,28 +104,28 @@ public class TempDatabase {
             return "The username contains numbers which is not allowed!!";
         } else if (isNotUsed == true && isValidLength == true && containsNumbers == false) {
             characters.add(new Character(accountName, name, 0, 0, 0, str, dex, vit, inte, wis, cha));
-            
+
             for (int i = 0; i < characters.size(); i++) {
                 System.out.println(characters.get(i).getName());
             }
-            
+
             return "Character was created successfully!";
 
         } else {
             return "Something went wrong!";
         }
     }
-    
-    public boolean accountHasCharacter(String accountName){
+
+    public boolean accountHasCharacter(String accountName) {
         boolean result = false;
-        
-        for(int i = 0; i < characters.size(); i++){
-            if(accountName.equals(characters.get(i).getAccountName())){
+
+        for (int i = 0; i < characters.size(); i++) {
+            if (accountName.equals(characters.get(i).getAccountName())) {
                 result = true;
                 break;
             }
         }
-        
+
         return result;
     }
 
@@ -248,6 +257,72 @@ public class TempDatabase {
             return false;
         }
 
+    }
+
+    private boolean sendRegisterConfirmMail(String recipient, String username){
+        System.out.println("Sent confirmation email!");
+        return mailSender(recipient, "Registration was successfull for the account " + username + ".\n\nYou can now login on the website http://localhost:8080/JspRPG_WebClient/Login.jsp \n\nPlease enjoy your time in the world of JspRPG!", "JspRPG Registration complete!") == true;
+    }
+    
+    public boolean sendPasswordResetMail(String recipient){
+        for(int i = 0; i < accounts.size(); i++){
+            if(recipient.equals(accounts.get(i).getEmail())){
+                System.out.println("Sent reset email!");
+                return mailSender(recipient, "Hi there!\n\nSomeone(hopefully you) have requested a password retrieval for the account: " + accounts.get(i).getUsername() + ".\n\nIf this was intentional, please visit the link: http://localhost:8080/JspRPG_WebClient/PasswordReset.jsp?response=" + accounts.get(i).getUsername() + " \n\nThere you will be able to reset it.","JspRPG Forgotten password");
+            }
+        }
+        
+        return false;
+    }
+
+    private boolean mailSender(String recipient, String emailMessage, String emailSubject) {
+        try {
+            String username = "scruburuzilla@gmail.com";
+            String password = "mysecretpassword";
+
+            Properties props = new Properties();
+
+            //This properties are valid for gmail.  You need to check for other mail providers/servers/agents.
+            props.setProperty("mail.host", "smtp.gmail.com");
+            props.setProperty("mail.smtp.port", "587");
+            props.setProperty("mail.smtp.auth", "true");
+            props.setProperty("mail.smtp.starttls.enable", "true");
+            props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
+            System.out.println("So far so good -1 setting up session parameters");
+            
+            //Authentication is performed here.  
+            SMTPAuthenticator auth = new SMTPAuthenticator(username, password);
+            System.out.println("So far so good-2 authenticator called....");
+
+            //The mail session is instantiated
+            //The rest is copied from Java Mail documentation.
+            Session mailConnection = Session.getInstance(props, auth);
+            javax.mail.Message msg = new MimeMessage(mailConnection);
+            System.out.println("So far so good-3 creating MIME message.....");
+            Address sender = new InternetAddress(username, "Vehicle Insurance Company");
+            Address receiver = new InternetAddress(recipient);
+            Session session = Session.getInstance(props);
+            msg.setContent(emailMessage, "text/plain");
+            msg.setFrom(sender);
+            msg.setRecipient(javax.mail.Message.RecipientType.TO, receiver);
+            msg.setSubject(emailSubject);
+            System.out.println("So far so good-4 ... finishing mail setup");
+
+            Transport transport = session.getTransport("smtp");
+            transport.connect(username, password);
+            System.out.println("So far so good-5  connecting to server.....");
+
+            Transport.send(msg);
+            System.out.println("Message successfully sent");
+            return true;        //Time to celebrate IF everything went fine upto this point.
+        } catch (MessagingException e) {
+            System.out.printf("Messaging Exception: " + e.getMessage());
+//          throw new RuntimeException(e);
+        } catch (Exception ex) {
+            System.out.printf("General Exception: ");
+            ex.printStackTrace();
+        }
+        return false;       //OOPS! something went terribly wrong.  Check the above exception messages!!
     }
 
 }

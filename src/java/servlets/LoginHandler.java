@@ -42,12 +42,20 @@ public class LoginHandler extends HttpServlet {
                 
                 TempDatabase.getInstance().addCharacter("Adminatus", "Herpules", 1, 1, 1, 1, 1, 1);
                 TempDatabase.getInstance().addCharacter("Derpinator", "Armando", 1, 1, 1, 1, 1, 1);
-                
             } else {
                 String username = request.getParameter("inputUsername");
                 String password = request.getParameter("inputPassword");
                 
-                String accountLevel = Integer.toString(TempDatabase.getInstance().getUserRole(username));
+                int tempAccountLevel = TempDatabase.getInstance().getUserRole(username);
+                String accountLevel = "Standard";
+                
+                if(tempAccountLevel == 2){
+                    accountLevel = "Admin";
+                }
+                else if(tempAccountLevel == 1){
+                    accountLevel = "Premium";
+                }
+                
                 String isPremium = Boolean.toString(TempDatabase.getInstance().getIsPremium(username));
                 String hasCharacter = Boolean.toString(TempDatabase.getInstance().accountHasCharacter(username));
                 
