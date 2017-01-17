@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="http://localhost:8080/ZoneHandlerBeanService/ZoneHandlerBean?Tester" uri="src/conf/xml-resources/web-service-references/ZoneHandlerBean_Tester/wsdl/localhost_8080/ZoneHandlerBeanService/ZoneHandlerBean.tester"/>
     <system systemId="http://localhost:8080/JspRPGApplicationServer/ApplicationWebService?WSDL" uri="src/conf/xml-resources/web-service-references/ApplicationWebService/wsdl/localhost_8080/JspRPGApplicationServer/ApplicationWebService.wsdl"/>
     <system systemId="http://localhost:8080/JspRPGApplicationServer/ApplicationWebService?xsd=1" uri="src/conf/xml-resources/web-service-references/ApplicationWebService/wsdl/localhost_8080/JspRPGApplicationServer/ApplicationWebService.xsd_1.xsd"/>
+    <system systemId="http://localhost:8080/JspRPGApplicationServer/BattleHandlerBeanService?WSDL" uri="src/conf/xml-resources/web-service-references/BattleHandlerBeanService/wsdl/localhost_8080/JspRPGApplicationServer/BattleHandlerBeanService.wsdl"/>
+    <system systemId="http://localhost:8080/JspRPGApplicationServer/BattleHandlerBeanService?xsd=1" uri="src/conf/xml-resources/web-service-references/BattleHandlerBeanService/wsdl/localhost_8080/JspRPGApplicationServer/BattleHandlerBeanService.xsd_1.xsd"/>
+    <system systemId="http://localhost:8080/ZoneHandlerBeanService/ZoneHandlerBean?WSDL" uri="src/conf/xml-resources/web-service-references/ZoneHandlerBean/wsdl/localhost_8080/ZoneHandlerBeanService/ZoneHandlerBean.wsdl"/>
+    <system systemId="http://localhost:8080/ZoneHandlerBeanService/ZoneHandlerBean?xsd=1" uri="src/conf/xml-resources/web-service-references/ZoneHandlerBean/wsdl/localhost_8080/ZoneHandlerBeanService/ZoneHandlerBean.xsd_1.xsd"/>
 </catalog>

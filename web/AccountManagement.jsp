@@ -20,7 +20,7 @@
                 $("#resetEmail").hide();
             });
             $("#resetEmailBut").click(function () {
-                $.get('ChangeHandler', function (responseText) {
+                $.get('AccountManagementHandler', function (responseText) {
                     $('#secretQuestion').text(responseText); 
                 });
 
@@ -66,17 +66,17 @@
                         <br>
                         Old password
                         <br>
-                        <input type="text" name="inputOldPassword"/>
+                        <input type="password" name="inputOldPassword"/>
                         <br>
                         <br>
                         New password
                         <br>
-                        <input type="text" name="inputNewPassword"/>
+                        <input type="password" name="inputNewPassword"/>
                         <br>
                         <br>
                         New password (again) 
                         <br>
-                        <input type="text" name="inputNewPassword2"/>
+                        <input type="password" name="inputNewPassword2"/>
                         <br>
                         <br>
                         <input type="submit" name="submitPasswordBut" value="Proceed"/>

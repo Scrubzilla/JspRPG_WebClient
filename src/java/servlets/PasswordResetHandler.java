@@ -5,6 +5,7 @@
  */
 package servlets;
 
+import database.TempDatabase;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -12,6 +13,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.xml.ws.WebServiceRef;
+import ws.ApplicationWebService_Service;
 
 /**
  *
@@ -19,6 +23,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "PasswordResetHandler", urlPatterns = {"/PasswordResetHandler"})
 public class PasswordResetHandler extends HttpServlet {
+
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8080/JspRPGApplicationServer/ApplicationWebService.wsdl")
+    private ApplicationWebService_Service service;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,9 +38,22 @@ public class PasswordResetHandler extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
-        try (PrintWriter out = response.getWriter()) {
 
+        try (PrintWriter out = response.getWriter()) {
+            String currentUser = request.getParameter("username");
+            String password = request.getParameter("inputPassword");
+            String password2 = request.getParameter("inputPassword2");
+            String serverResponse = "";
+            
+            System.out.println(currentUser + " + + " + password + " + + " + password2);
+            if (!password.equals(password2)) {
+                serverResponse = "The new passwords does not match, try again!";
+                response.sendRedirect("./PasswordReset.jsp?response=" + serverResponse);
+            } else {
+                resetPassword(currentUser, password);
+                serverResponse = "The password was changed successfully";
+                response.sendRedirect("./Login.jsp?response=" + serverResponse);
+            }
         }
     }
 
@@ -75,5 +95,12 @@ public class PasswordResetHandler extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    private String resetPassword(java.lang.String username, java.lang.String newPassword) {
+        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+        // If the calling of port operations may lead to race condition some synchronization is required.
+        ws.ApplicationWebService port = service.getApplicationWebServicePort();
+        return port.resetPassword(username, newPassword);
+    }
 
 }

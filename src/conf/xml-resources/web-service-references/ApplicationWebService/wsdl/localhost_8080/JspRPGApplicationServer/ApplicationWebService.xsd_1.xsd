@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?><!-- Published by JAX-WS RI (http://jax-ws.java.net). RI's version is Metro/2.3.1-b419 (branches/2.3.1.x-7937; 2014-08-04T08:11:03+0000) JAXWS-RI/2.2.10-b140803.1500 JAXWS-API/2.2.11 JAXB-RI/2.2.10-b140802.1033 JAXB-API/2.2.12-b140109.1041 svn-revision#unknown. --><xs:schema xmlns:tns="http://WS/" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://WS/">
+<?xml version='1.0' encoding='UTF-8'?><!-- Published by JAX-WS RI (http://jax-ws.java.net). RI's version is Metro/2.3.2-b608 (trunk-7979; 2015-01-21T12:50:19+0000) JAXWS-RI/2.2.11-b150120.1832 JAXWS-API/2.2.12 JAXB-RI/2.2.12-b141219.1637 JAXB-API/2.2.13-b141020.1521 svn-revision#unknown. --><xs:schema xmlns:tns="http://WS/" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://WS/">
 
 <xs:element name="addAccount" type="tns:addAccount"/>
 
@@ -7,6 +7,10 @@
 <xs:element name="addCharacter" type="tns:addCharacter"/>
 
 <xs:element name="addCharacterResponse" type="tns:addCharacterResponse"/>
+
+<xs:element name="changeEmail" type="tns:changeEmail"/>
+
+<xs:element name="changeEmailResponse" type="tns:changeEmailResponse"/>
 
 <xs:element name="changePassword" type="tns:changePassword"/>
 
@@ -24,6 +28,14 @@
 
 <xs:element name="forgotPasswordResponse" type="tns:forgotPasswordResponse"/>
 
+<xs:element name="getCharLocation" type="tns:getCharLocation"/>
+
+<xs:element name="getCharLocationResponse" type="tns:getCharLocationResponse"/>
+
+<xs:element name="getCharacterName" type="tns:getCharacterName"/>
+
+<xs:element name="getCharacterNameResponse" type="tns:getCharacterNameResponse"/>
+
 <xs:element name="getRoleFromAccount" type="tns:getRoleFromAccount"/>
 
 <xs:element name="getRoleFromAccountResponse" type="tns:getRoleFromAccountResponse"/>
@@ -35,6 +47,22 @@
 <xs:element name="logInCredentials" type="tns:logInCredentials"/>
 
 <xs:element name="logInCredentialsResponse" type="tns:logInCredentialsResponse"/>
+
+<xs:element name="resetPassword" type="tns:resetPassword"/>
+
+<xs:element name="resetPasswordResponse" type="tns:resetPasswordResponse"/>
+
+<xs:complexType name="checkCharacterFromUsername">
+<xs:sequence>
+<xs:element name="username" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="checkCharacterFromUsernameResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean"/>
+</xs:sequence>
+</xs:complexType>
 
 <xs:complexType name="addAccount">
 <xs:sequence>
@@ -52,13 +80,40 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="checkCharacterFromUsername">
+<xs:complexType name="changeEmail">
+<xs:sequence>
+<xs:element name="username" type="xs:string" minOccurs="0"/>
+<xs:element name="newEmail" type="xs:string" minOccurs="0"/>
+<xs:element name="oldEmail" type="xs:string" minOccurs="0"/>
+<xs:element name="securityAns" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="changeEmailResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getCharacterName">
 <xs:sequence>
 <xs:element name="username" type="xs:string" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="checkCharacterFromUsernameResponse">
+<xs:complexType name="getCharacterNameResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="forgotPassword">
+<xs:sequence>
+<xs:element name="eMail" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="forgotPasswordResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:boolean"/>
 </xs:sequence>
@@ -81,6 +136,7 @@
 <xs:sequence>
 <xs:element name="username" type="xs:string" minOccurs="0"/>
 <xs:element name="newPassword" type="xs:string" minOccurs="0"/>
+<xs:element name="oldPassword" type="xs:string" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
@@ -123,6 +179,18 @@
 </xs:sequence>
 </xs:complexType>
 
+<xs:complexType name="getCharLocation">
+<xs:sequence>
+<xs:element name="username" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getCharLocationResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
 <xs:complexType name="getSecurityQuestion">
 <xs:sequence>
 <xs:element name="username" type="xs:string" minOccurs="0"/>
@@ -135,15 +203,16 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="forgotPassword">
+<xs:complexType name="resetPassword">
 <xs:sequence>
-<xs:element name="eMail" type="xs:string" minOccurs="0"/>
+<xs:element name="username" type="xs:string" minOccurs="0"/>
+<xs:element name="newPassword" type="xs:string" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="forgotPasswordResponse">
+<xs:complexType name="resetPasswordResponse">
 <xs:sequence>
-<xs:element name="return" type="xs:boolean"/>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 

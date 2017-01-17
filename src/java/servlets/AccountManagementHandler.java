@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.xml.ws.WebServiceRef;
+import ws.ApplicationWebService_Service;
 
 /**
  *
@@ -21,6 +23,9 @@ import javax.servlet.http.HttpSession;
  */
 @WebServlet(name = "AccountManagementHandler", urlPatterns = {"/AccountManagementHandler"})
 public class AccountManagementHandler extends HttpServlet {
+
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8080/JspRPGApplicationServer/ApplicationWebService.wsdl")
+    private ApplicationWebService_Service service;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -65,7 +70,9 @@ public class AccountManagementHandler extends HttpServlet {
                 if (!newPassword.equals(newPassword2)) {
                     serverResponse = "The new passwords does not match, try again!";
                 } else {
-                    serverResponse = TempDatabase.getInstance().changePassword(currentUser, oldPassword, newPassword);
+                    
+                    
+                    serverResponse = changePassword(currentUser, newPassword, oldPassword);
                 }
 
                 response.sendRedirect("./AccountManagement.jsp?response=" + serverResponse);
@@ -78,13 +85,13 @@ public class AccountManagementHandler extends HttpServlet {
                 if (!newEmail.equals(newEmail2)) {
                     serverResponse = "The new emails does not match, try again!";
                 }else{
-                    serverResponse = TempDatabase.getInstance().changeEmail(currentUser, oldEmail, newEmail, sqAnswer);
+                    serverResponse = changeEmail(currentUser, newEmail, oldEmail, sqAnswer);
                 }
 
                 response.sendRedirect("./AccountManagement.jsp?response=" + serverResponse);
 
             } else {
-                String secretQuestion = TempDatabase.getInstance().getSecretQuestion(currentUser);
+                String secretQuestion = getSecurityQuestion(currentUser);
                 response.setContentType("text/plain");
                 response.setCharacterEncoding("UTF-8");
                 response.getWriter().write(secretQuestion);
@@ -132,4 +139,27 @@ public class AccountManagementHandler extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+    private String changeEmail(java.lang.String username, java.lang.String newEmail, java.lang.String oldEmail, java.lang.String securityAns) {
+        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+        // If the calling of port operations may lead to race condition some synchronization is required.
+        ws.ApplicationWebService port = service.getApplicationWebServicePort();
+        return port.changeEmail(username, newEmail, oldEmail, securityAns);
+    }
+
+    private String changePassword(java.lang.String username, java.lang.String newPassword, java.lang.String oldPassword) {
+        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+        // If the calling of port operations may lead to race condition some synchronization is required.
+        ws.ApplicationWebService port = service.getApplicationWebServicePort();
+        return port.changePassword(username, newPassword, oldPassword);
+    }
+
+    private String getSecurityQuestion(java.lang.String username) {
+        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+        // If the calling of port operations may lead to race condition some synchronization is required.
+        ws.ApplicationWebService port = service.getApplicationWebServicePort();
+        return port.getSecurityQuestion(username);
+    }
+    
+    
+    
 }

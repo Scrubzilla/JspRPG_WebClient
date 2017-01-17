@@ -42,5 +42,37 @@
         <delete dir="${build.generated.sources.dir}/jax-ws/ws"/>
         <delete dir="${build.generated.dir}/jax-wsCache/ApplicationWebService"/>
     </target>
-    <target name="wsimport-client-generate" depends="wsimport-client-ApplicationWebService"/>
+    <target name="wsimport-client-BattleHandlerBeanService" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/BattleHandlerBeanService"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/BattleHandlerBeanService" destdir="${build.generated.dir}/jax-wsCache/BattleHandlerBeanService" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/BattleHandlerBeanService/wsdl/localhost_8080/JspRPGApplicationServer/BattleHandlerBeanService.wsdl" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:8080/JspRPGApplicationServer/BattleHandlerBeanService?WSDL" xnocompile="true" xendorsed="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-service-references/BattleHandlerBeanService/wsdl/localhost_8080/JspRPGApplicationServer/BattleHandlerBeanService.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/BattleHandlerBeanService"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/BattleHandlerBeanService">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-BattleHandlerBeanService" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/ws"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/BattleHandlerBeanService"/>
+    </target>
+    <target name="wsimport-client-ZoneHandlerBean" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/ZoneHandlerBean"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/ZoneHandlerBean" destdir="${build.generated.dir}/jax-wsCache/ZoneHandlerBean" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/ZoneHandlerBean/wsdl/localhost_8080/ZoneHandlerBeanService/ZoneHandlerBean.wsdl" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:8080/ZoneHandlerBeanService/ZoneHandlerBean?WSDL" xnocompile="true" xendorsed="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-service-references/ZoneHandlerBean/wsdl/localhost_8080/ZoneHandlerBeanService/ZoneHandlerBean.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/ZoneHandlerBean"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/ZoneHandlerBean">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-ZoneHandlerBean" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/ws"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/ZoneHandlerBean"/>
+    </target>
+    <target name="wsimport-client-generate" depends="wsimport-client-ApplicationWebService, wsimport-client-BattleHandlerBeanService, wsimport-client-ZoneHandlerBean"/>
 </project>

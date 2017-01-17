@@ -18,10 +18,10 @@
             <div id="main">
                 <h1>Login</h1>
                 <%
-                    String error = request.getParameter("error");
+                    String serverResponse = request.getParameter("response");
 
-                    if (error != null) {
-                        out.println(error);
+                    if (serverResponse != null) {
+                        out.println(serverResponse);
                     }
                 %>
                 <form action="LoginHandler" method="GET">  

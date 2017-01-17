@@ -23,23 +23,25 @@
                 <form action="PasswordResetHandler" method="GET">  
                     Input password
                     <br>
-                    <input type="text" name="inputEmail"/>
+                    <input type="password" name="inputPassword"/>
                     <br>
                     <br>
                     Input password again
                     <br>
-                    <input type="text" name="inputEmail"/>
+                    <input type="password" name="inputPassword2"/>
                     <br>
                     <br>
+                    <input type="hidden" name="username" value="<%= request.getParameter("user") %>" />
                     <input type="submit" name="passResetBut" value="Reset"/>
                 </form>
                 <br>
                 <br>
                 <%
                     String serverResponse = request.getParameter("response");
-
+                    
                     if (serverResponse != null) {
                         out.println(serverResponse);
+                        
                     }
                 %>
             </div>

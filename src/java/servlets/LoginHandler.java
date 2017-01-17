@@ -77,8 +77,8 @@ public class LoginHandler extends HttpServlet {
                     
                     response.sendRedirect("./AccountManagement.jsp");
                 } else {
-                    String error = "That username/password combination does not exist, try again!";
-                    response.sendRedirect("./Login.jsp?error=" + error);
+                    String serverResponse = "That username/password combination does not exist, try again!";
+                    response.sendRedirect("./Login.jsp?response=" + serverResponse);
                 }
             }
         }

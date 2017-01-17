@@ -1,0 +1,161 @@
+<?xml version='1.0' encoding='UTF-8'?><!-- Published by JAX-WS RI (http://jax-ws.java.net). RI's version is Metro/2.3.2-b608 (trunk-7979; 2015-01-21T12:50:19+0000) JAXWS-RI/2.2.11-b150120.1832 JAXWS-API/2.2.12 JAXB-RI/2.2.12-b141219.1637 JAXB-API/2.2.13-b141020.1521 svn-revision#unknown. --><xs:schema xmlns:tns="http://WS/" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://WS/">
+
+<xs:element name="addAccountToZone" type="tns:addAccountToZone"/>
+
+<xs:element name="addAccountToZoneResponse" type="tns:addAccountToZoneResponse"/>
+
+<xs:element name="addToZone1Chat" type="tns:addToZone1Chat"/>
+
+<xs:element name="addToZone1ChatResponse" type="tns:addToZone1ChatResponse"/>
+
+<xs:element name="addToZone2Chat" type="tns:addToZone2Chat"/>
+
+<xs:element name="addToZone2ChatResponse" type="tns:addToZone2ChatResponse"/>
+
+<xs:element name="addToZone3Chat" type="tns:addToZone3Chat"/>
+
+<xs:element name="addToZone3ChatResponse" type="tns:addToZone3ChatResponse"/>
+
+<xs:element name="changeCharLocationInDB" type="tns:changeCharLocationInDB"/>
+
+<xs:element name="changeCharLocationInDBResponse" type="tns:changeCharLocationInDBResponse"/>
+
+<xs:element name="getZone" type="tns:getZone"/>
+
+<xs:element name="getZoneResponse" type="tns:getZoneResponse"/>
+
+<xs:element name="getzone1Chat" type="tns:getzone1Chat"/>
+
+<xs:element name="getzone1ChatResponse" type="tns:getzone1ChatResponse"/>
+
+<xs:element name="getzone2Chat" type="tns:getzone2Chat"/>
+
+<xs:element name="getzone2ChatResponse" type="tns:getzone2ChatResponse"/>
+
+<xs:element name="getzone3Chat" type="tns:getzone3Chat"/>
+
+<xs:element name="getzone3ChatResponse" type="tns:getzone3ChatResponse"/>
+
+<xs:element name="moveAccountFromZone" type="tns:moveAccountFromZone"/>
+
+<xs:element name="moveAccountFromZoneResponse" type="tns:moveAccountFromZoneResponse"/>
+
+<xs:complexType name="getzone3Chat">
+<xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="getzone3ChatResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="addToZone1Chat">
+<xs:sequence>
+<xs:element name="arg0" type="xs:string" minOccurs="0"/>
+<xs:element name="arg1" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="addToZone1ChatResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getZone">
+<xs:sequence>
+<xs:element name="arg0" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getZoneResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getzone2Chat">
+<xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="getzone2ChatResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="addToZone2Chat">
+<xs:sequence>
+<xs:element name="arg0" type="xs:string" minOccurs="0"/>
+<xs:element name="arg1" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="addToZone2ChatResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="addAccountToZone">
+<xs:sequence>
+<xs:element name="arg0" type="xs:string" minOccurs="0"/>
+<xs:element name="arg1" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="addAccountToZoneResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="addToZone3Chat">
+<xs:sequence>
+<xs:element name="arg0" type="xs:string" minOccurs="0"/>
+<xs:element name="arg1" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="addToZone3ChatResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="moveAccountFromZone">
+<xs:sequence>
+<xs:element name="arg0" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="moveAccountFromZoneResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="changeCharLocationInDB">
+<xs:sequence>
+<xs:element name="arg0" type="xs:string" minOccurs="0"/>
+<xs:element name="arg1" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="changeCharLocationInDBResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getzone1Chat">
+<xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="getzone1ChatResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+</xs:schema>
