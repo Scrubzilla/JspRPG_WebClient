@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.xml.ws.WebServiceRef;
+import ws.ApplicationWebService_Service;
 import ws.BattleHandlerBeanService;
 import ws.ZoneHandlerBeanService;
 
@@ -24,6 +25,9 @@ import ws.ZoneHandlerBeanService;
  */
 @WebServlet(name = "InGameHandler", urlPatterns = {"/InGameHandler"})
 public class InGameHandler extends HttpServlet {
+
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8080/JspRPGApplicationServer/ApplicationWebService.wsdl")
+    private ApplicationWebService_Service service_2;
 
     @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8080/JspRPGApplicationServer/BattleHandlerBeanService.wsdl")
     private BattleHandlerBeanService service_1;
@@ -48,7 +52,8 @@ public class InGameHandler extends HttpServlet {
 
             HttpSession session = request.getSession(true);
             String currentUser = (String) session.getAttribute("username");
-
+            String characterName = getCharacterName(currentUser);
+            
             if (request.getParameter("backToAccountBut") != null) {
                 response.sendRedirect("./AccountManagement.jsp");
             } else {
@@ -64,12 +69,14 @@ public class InGameHandler extends HttpServlet {
                     for(int i = 0; i < splittedCommand.length; i++){
                         System.out.println(splittedCommand[i]);
                     }
-                    changeZone(currentUser, splittedCommand[2]);
+                    
+                    String gameResponse = performAction(splittedCommand, currentUser);
+                    
                     response.setContentType("text/plain");
                     response.setCharacterEncoding("UTF-8");
-                    response.getWriter().write(command);
+                    response.getWriter().write(gameResponse);
                 } else if (message != null) {
-                    sendMessage(message, currentUser);
+                    sendMessage(message, characterName);
                     response.setContentType("text/plain");
                     response.setCharacterEncoding("UTF-8");
                     response.getWriter().write(message);
@@ -242,6 +249,13 @@ public class InGameHandler extends HttpServlet {
         // If the calling of port operations may lead to race condition some synchronization is required.
         ws.ZoneHandlerBean port = service.getZoneHandlerBeanPort();
         return port.addToZone3Chat(arg0, arg1);
+    }
+
+    private String getCharacterName(java.lang.String username) {
+        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+        // If the calling of port operations may lead to race condition some synchronization is required.
+        ws.ApplicationWebService port = service_2.getApplicationWebServicePort();
+        return port.getCharacterName(username);
     }
 
     
