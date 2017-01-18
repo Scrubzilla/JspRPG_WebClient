@@ -63,7 +63,7 @@ public class AccountManagementHandler extends HttpServlet {
             } else if (request.getParameter("seePremiumBut") != null) {
 
             } else if (request.getParameter("becomePremiumBut") != null) {
-
+                response.sendRedirect("./BecomePremium.jsp");
             } else if (request.getParameter("logoutBut") != null) {
                 response.sendRedirect("./Login.jsp");
             } else if (request.getParameter("submitPasswordBut") != null) {
