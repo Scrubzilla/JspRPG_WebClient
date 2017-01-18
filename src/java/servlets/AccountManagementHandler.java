@@ -6,6 +6,7 @@
 package servlets;
 
 import database.TempDatabase;
+import gameclasses.ZoneManager;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -48,21 +49,24 @@ public class AccountManagementHandler extends HttpServlet {
             System.out.println(currentUser);
 
             if (request.getParameter("playGameBut") != null) {
-                response.sendRedirect("./InGame.jsp");
-            }
-            else if (request.getParameter("createCharacterBut") != null) {
-                response.sendRedirect("./CharacterCreation.jsp");
-            }
-            else if (request.getParameter("seePremiumBut") != null) {
+                String characterName = getCharacterName(currentUser);
+                int charLocation = Integer.parseInt(getCharLocation(currentUser));
                 
-            }
-            else if (request.getParameter("becomePremiumBut") != null) {
-                            
-            }
-            else if (request.getParameter("logoutBut") != null) {
+                ZoneManager zm = new ZoneManager();
+                String locationName = zm.idToName(charLocation);
+                
+                session.setAttribute("location", locationName);
+                session.setAttribute("characterName", characterName);
+                response.sendRedirect("./InGame.jsp");
+            } else if (request.getParameter("createCharacterBut") != null) {
+                response.sendRedirect("./CharacterCreation.jsp");
+            } else if (request.getParameter("seePremiumBut") != null) {
+
+            } else if (request.getParameter("becomePremiumBut") != null) {
+
+            } else if (request.getParameter("logoutBut") != null) {
                 response.sendRedirect("./Login.jsp");
-            }
-            else if (request.getParameter("submitPasswordBut") != null) {
+            } else if (request.getParameter("submitPasswordBut") != null) {
                 String oldPassword = request.getParameter("inputOldPassword");
                 String newPassword = request.getParameter("inputNewPassword");
                 String newPassword2 = request.getParameter("inputNewPassword2");
@@ -70,8 +74,7 @@ public class AccountManagementHandler extends HttpServlet {
                 if (!newPassword.equals(newPassword2)) {
                     serverResponse = "The new passwords does not match, try again!";
                 } else {
-                    
-                    
+
                     serverResponse = changePassword(currentUser, newPassword, oldPassword);
                 }
 
@@ -84,7 +87,7 @@ public class AccountManagementHandler extends HttpServlet {
 
                 if (!newEmail.equals(newEmail2)) {
                     serverResponse = "The new emails does not match, try again!";
-                }else{
+                } else {
                     serverResponse = changeEmail(currentUser, newEmail, oldEmail, sqAnswer);
                 }
 
@@ -159,7 +162,19 @@ public class AccountManagementHandler extends HttpServlet {
         ws.ApplicationWebService port = service.getApplicationWebServicePort();
         return port.getSecurityQuestion(username);
     }
-    
-    
-    
+
+    private String getCharacterName(java.lang.String username) {
+        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+        // If the calling of port operations may lead to race condition some synchronization is required.
+        ws.ApplicationWebService port = service.getApplicationWebServicePort();
+        return port.getCharacterName(username);
+    }
+
+    private String getCharLocation(java.lang.String username) {
+        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+        // If the calling of port operations may lead to race condition some synchronization is required.
+        ws.ApplicationWebService port = service.getApplicationWebServicePort();
+        return port.getCharLocation(username);
+    }
+
 }

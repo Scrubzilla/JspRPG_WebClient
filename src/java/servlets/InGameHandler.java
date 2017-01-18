@@ -5,6 +5,7 @@
  */
 package servlets;
 
+import gameclasses.ZoneManager;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -52,8 +53,10 @@ public class InGameHandler extends HttpServlet {
 
             HttpSession session = request.getSession(true);
             String currentUser = (String) session.getAttribute("username");
-            String characterName = getCharacterName(currentUser);
-            
+
+            String characterName =(String) session.getAttribute("characterName");
+            String location = (String) session.getAttribute("location");
+
             if (request.getParameter("backToAccountBut") != null) {
                 response.sendRedirect("./AccountManagement.jsp");
             } else {
@@ -66,17 +69,17 @@ public class InGameHandler extends HttpServlet {
 
                 if (command != null) {
                     String splittedCommand[] = command.split("\\s+");
-                    for(int i = 0; i < splittedCommand.length; i++){
+                    for (int i = 0; i < splittedCommand.length; i++) {
                         System.out.println(splittedCommand[i]);
                     }
-                    
-                    String gameResponse = performAction(splittedCommand, currentUser);
-                    
+
+                    String gameResponse = performAction(splittedCommand, currentUser, location, request, characterName);
+
                     response.setContentType("text/plain");
                     response.setCharacterEncoding("UTF-8");
                     response.getWriter().write(gameResponse);
                 } else if (message != null) {
-                    sendMessage(message, characterName);
+                    sendMessage(message, characterName, location);
                     response.setContentType("text/plain");
                     response.setCharacterEncoding("UTF-8");
                     response.getWriter().write(message);
@@ -89,9 +92,11 @@ public class InGameHandler extends HttpServlet {
         }
     }
 
-    private void sendMessage(String message, String currentUser) {
-        int currentZone = 1; //REPLACE
+    private void sendMessage(String message, String currentUser, String currentLocation) {
+        ZoneManager zm = new ZoneManager();
         
+        int currentZone = zm.nameToId(currentLocation);
+        System.out.println("SEND MESSAGE CURRENT ZONE -------- " + currentZone);
         switch (currentZone) {
             case 1:
                 addToZone1Chat(message, currentUser);
@@ -106,60 +111,79 @@ public class InGameHandler extends HttpServlet {
                 break;
         }
     }
-    
-    private String performAction(String command[], String currentUser) {
-        if (command[0].equalsIgnoreCase("Travel") && command[1].equalsIgnoreCase("to") && command.length == 3) {
-            changeZone(currentUser, command[2]);
-            return "You have safely arrived to" + command[2];
+
+    private String performAction(String command[], String currentUser, String currentLocation, HttpServletRequest request, String characterName) {
+        ZoneManager zm = new ZoneManager();
+        if (command[0].equalsIgnoreCase("Travel") && command[1].equalsIgnoreCase("to")) {
+            String zoneName = "";
+            for(int i = 2; i < command.length; i++){
+                if(i == 2){
+                    zoneName = command[i];
+                    System.out.println("Iteration: " + i + "  " + zoneName);
+                }else{
+                    
+                    zoneName = zoneName + " " + command[i];
+                    System.out.println("Iteration: " + i + "  " + zoneName);
+                }
+                
+            }
+            if (zm.nameToId(zoneName) != -1) {
+                changeZone(characterName, Integer.toString(zm.nameToId(zoneName)), zoneName,request);
+                return "You have safely arrived to " + zoneName;
+            } else {
+                return "That zone does not exist!";
+            }
+
         } else if (command[0].equalsIgnoreCase("Attack") && command.length == 3) {
             List<String> targetList = getCreatureListName(); //REPLACE THIS ASAP
             int targetCounter = 0;
             boolean targetExists = false;
-            
-            for(int i = 0; i < targetList.size(); i++){
-                if(command[1].equals(targetList.get(i))){
+
+            for (int i = 0; i < targetList.size(); i++) {
+                if (command[1].equals(targetList.get(i))) {
                     targetExists = true;
                     targetCounter++;
                 }
             }
-            
-            if(targetExists == true && (Integer.parseInt(command[2])+1) <= targetCounter){
+
+            if (targetExists == true && (Integer.parseInt(command[2]) + 1) <= targetCounter) {
                 //startBattle();
                 //Do battle stuff
-            }else{
+            } else {
                 return "That is not a valid target!";
             }
-            
+
         } else if (command[0].equalsIgnoreCase("Cast")) {
 
-        } else if (command[0].equalsIgnoreCase("Lookup")) {
-
+        } else if (command[0].equalsIgnoreCase("Lookup") && command[1].equalsIgnoreCase("Map") && command.length == 2) {
+            return "The zones in the world are: \n" + zm.getAllZones() + "\n";
         }
 
         return "That's not a valid command!";
     }
 
-    private void changeZone(String currentUser, String zoneId) {
-        System.out.println("1");
+    private void changeZone(String currentUser, String zoneId, String destination,HttpServletRequest request) {
+        System.out.println("CHANGING ZONES ----------" + zoneId);
         moveAccountFromZone(currentUser);
-        System.out.println("2");
         addAccountToZone(currentUser, zoneId);
-        System.out.println("3");
         changeCharLocationInDB(currentUser, zoneId);
-        System.out.println("4");
-    }
-    
-    private void attackEnemy(){
-    
+
+        HttpSession session = request.getSession(true);
+        session.setAttribute("location", destination);
     }
 
-    private void castSpell(){
-    
+    private void attackEnemy() {
+
     }
-    
-    private void lookUp(){
-    
+
+    private void castSpell() {
+
     }
+
+    private void lookUp() {
+
+    }
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -258,15 +282,11 @@ public class InGameHandler extends HttpServlet {
         return port.getCharacterName(username);
     }
 
-    
-    
+    private String getCharLocation(java.lang.String username) {
+        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+        // If the calling of port operations may lead to race condition some synchronization is required.
+        ws.ApplicationWebService port = service_2.getApplicationWebServicePort();
+        return port.getCharLocation(username);
+    }
 
 }
-
-
-
-//Vill ha metod för att få character namn
-//Vill ha metod för att se characterns nuvarande zone
-//Vill kunna få en lista med enemies i zonen/areat
-//Vill ha en metod för att få namnet på zonen kanske? :o
-//Name of monster please

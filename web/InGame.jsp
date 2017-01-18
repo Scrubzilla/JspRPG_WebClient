@@ -16,7 +16,7 @@
                 var obj = document.getElementById(input);
                 obj.value += responseText + "\n";
             }
-            
+
             function refrestChat(input, responseText) {
                 var obj = document.getElementById(input);
                 obj.value = responseText + "\n";
@@ -29,7 +29,7 @@
             $(document).ready(function () {                        
                 $('#commandBut').click(function (event) {  
                     var gameCommand = $('#commandField').val();
-
+                    $('#commandField').val("");
                     $.get('InGameHandler', {command: gameCommand}, function (responseText) {
                         var response = responseText;
                         addtxt('mainGame', responseText);
@@ -58,6 +58,13 @@
         <div id="header"></div>
     <center>
         <div id="main">
+            <%
+                String currentUser = (String) session.getAttribute("username");
+                String userRole = (String) session.getAttribute("accountLevel");
+                String characterName = (String) session.getAttribute("characterName");
+                String location = (String) session.getAttribute("location");
+                out.println("<B> Logged in as: </B>" + currentUser + "&nbsp &nbsp &nbsp &nbsp &nbsp<B>Character name: </B>" + characterName + "&nbsp &nbsp &nbsp &nbsp &nbsp<B> Account Status: </B>" + userRole);
+            %>
             <br>
             <div id="gameLeft" style="float: left;">
                 <h3>Gamescreen</h3>
@@ -69,7 +76,8 @@
             </div>
 
             <div id="gameLeft" style="float: right;">
-                <h3>Chat</h3>
+                <h3>Chat - <%out.println(location);%></h3>
+
                 <textarea id="chatBox" rows="30" cols="35" readonly="readonly" style="margin-right: 2px; overflow:auto; resize:none"></textarea>
                 <br>
                 <br>
@@ -80,7 +88,26 @@
             <form action="InGameHandler" method="GET">
                 <input type="submit" id="backToAccountBut" name="backToAccountBut" value="Back to account management" style="margin-top:40px;"/>
                 <br>
-                <div id="score"></div>
+                <p style="margin-top: 30px;">
+                    <u>Commands:</u>
+                    <br>
+                    Travel to zoneName - Will take you character to the specified zone.
+                    <br>
+                    <br>
+                    Attack targetName x - You will attack the specified target with position x in the list.
+                    <br>
+                    <br>
+                    Cast spellName on targetName - You will cast the specified spell on the specified target.
+                    <br>
+                    <br>
+                    Lookup spells - You will see all of the spells that you know.
+                    <br>
+                    <br>
+                    Lookup zone - You will see all of the monsters in the zone.
+                    <br>
+                    <br>
+                    Lookup Map - You will see all of the zone names.
+                </p>
             </form>
         </div>
     </center>

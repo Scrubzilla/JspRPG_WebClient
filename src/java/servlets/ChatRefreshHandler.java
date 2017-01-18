@@ -5,6 +5,7 @@
  */
 package servlets;
 
+import gameclasses.ZoneManager;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -13,7 +14,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.xml.ws.WebServiceRef;
+import ws.ApplicationWebService_Service;
 import ws.ZoneHandlerBeanService;
 
 /**
@@ -22,6 +25,9 @@ import ws.ZoneHandlerBeanService;
  */
 @WebServlet(name = "ChatRefreshHandler", urlPatterns = {"/ChatRefreshHandler"})
 public class ChatRefreshHandler extends HttpServlet {
+
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8080/JspRPGApplicationServer/ApplicationWebService.wsdl")
+    private ApplicationWebService_Service service_1;
 
     @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8080/ZoneHandlerBeanService/ZoneHandlerBean.wsdl")
     private ZoneHandlerBeanService service;
@@ -39,8 +45,12 @@ public class ChatRefreshHandler extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            int currentZone = 1;
+            
+            HttpSession session = request.getSession(true);
+            
+            ZoneManager zm = new ZoneManager();
+            int currentZone = zm.nameToId((String) session.getAttribute("location"));
+            System.out.println(currentZone);
             List<String> chatMessages = null;
             System.out.println("Getting chat from zone...");
             
@@ -50,11 +60,11 @@ public class ChatRefreshHandler extends HttpServlet {
                     chatMessages = getzone1Chat();
                     break;
                 case 2:
-                    System.out.println("Reading zone 1 chat");
+                    System.out.println("Reading zone 2 chat");
                     chatMessages = getzone2Chat();
                     break;
                 case 3:
-                    System.out.println("Reading zone 1 chat");
+                    System.out.println("Reading zone 3 chat");
                     chatMessages = getzone3Chat();
                     break;
                 default:
@@ -140,6 +150,5 @@ public class ChatRefreshHandler extends HttpServlet {
         ws.ZoneHandlerBean port = service.getZoneHandlerBeanPort();
         return port.getzone3Chat();
     }
-    
-    
+
 }
