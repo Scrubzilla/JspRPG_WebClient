@@ -10,7 +10,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="layout.css">
-        <title>JspRPG</title>
+        <title>JspRPG InGame</title>
         <script>
             function addtxt(input, responseText) {
                 var obj = document.getElementById(input);
@@ -105,20 +105,17 @@
                     <br>
                     Travel to zoneName - Will take you character to the specified zone.
                     <br>
+                    Initiate on area x - Will start a battle at area x.
                     <br>
                     Attack targetName x - You will attack the specified target with position x in the list.
                     <br>
+                    Cast spellName on targetName x - You will cast the specified spell on the specified target x.
                     <br>
-                    Cast spellName on targetName - You will cast the specified spell on the specified target.
-                    <br>
-                    <br>
-                    Lookup spells - You will see all of the spells that you know.
-                    <br>
+                    Lookup spells - You will see all of the spells that you know. ()Can only be used in combat)
                     <br>
                     Lookup creatures - You will see all of the monsters in the zone.
                     <br>
-                    <br>
-                    Lookup Map - You will see all of the zone names.
+                    Lookup map - You will see all of the zone names.
                 </p>
             </form>
         </div>

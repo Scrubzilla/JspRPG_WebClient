@@ -10,7 +10,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="layout.css">
-        <title>Password reset</title>
+        <title>JspRPG Password Reset</title>
     </head>
     <body>
         <div id="header"></div>

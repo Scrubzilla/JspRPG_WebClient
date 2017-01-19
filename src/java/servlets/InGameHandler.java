@@ -136,7 +136,7 @@ public class InGameHandler extends HttpServlet {
                 }
                 if (zm.nameToId(zoneName) != -1) {
                     changeZone(characterName, Integer.toString(zm.nameToId(zoneName)), zoneName, request);
-                    return "You have safely arrived to " + zoneName + "#" + zoneName;
+                    return "You have safely arrived to " + zoneName + "\n" + "#" + zoneName;
                 } else {
                     return "That zone does not exist!";
                 }
@@ -174,6 +174,12 @@ public class InGameHandler extends HttpServlet {
                 } catch (NumberFormatException nfe) {
                     return "That is not a valid area number!";
                 }
+            }else if(command[0].equalsIgnoreCase("/stats") && command[1].equals("getAccountsCreated") && command.length == 2){
+                if(session.getAttribute("accountLevel").equals("Admin")){
+                    return "The total amount of accounts that have been created are: " + Integer.toString(statsGetAccountsCreated()) + ".";
+                }else{
+                    return "You do not have the privelegies for that command!\n";
+                }
             }
         } else if (inCombat.equals("true")) {
             if (command[0].equalsIgnoreCase("Lookup") && command[1].equalsIgnoreCase("Spells") && command.length == 2) {
@@ -210,10 +216,10 @@ public class InGameHandler extends HttpServlet {
                             String creAtt = creaturesAttackPlayer();
 
                             if (creAtt.contains("The creatures killed you")) {
-                                battleResult = battleResult + "\n" + creaturesAttackPlayer() + ".\nGit gud and try again!\n\nYou are now out of combat.\n";
+                                battleResult = battleResult + "\n" + creAtt + ".\nGit gud and try again!\n\nYou are now out of combat.\n";
                                 session.setAttribute("inCombat", "false");
                             } else {
-                                battleResult = battleResult + "\n" + creaturesAttackPlayer() + "\n";
+                                battleResult = battleResult + "\n" + creAtt + "\n";
                                 battleResult = battleResult + "\n" + getPlayerStatus() + "\n";
                             }
 
@@ -224,7 +230,7 @@ public class InGameHandler extends HttpServlet {
                         return "That is not a valid target!";
                     }
                 } catch (NumberFormatException nfe) {
-                    return "That is not a valid targer number!";
+                    return "That is not a valid target number!";
                 }
             } else if (command[0].equalsIgnoreCase("Cast") && command[2].equals("on") && command.length == 5) {
                 try {
@@ -270,10 +276,10 @@ public class InGameHandler extends HttpServlet {
                                 String creAtt = creaturesAttackPlayer();
 
                                 if (creAtt.contains("The creatures killed you")) {
-                                    battleResult = battleResult + "\n" + creaturesAttackPlayer() + ".\nGit gud and try again!\n\nYou are now out of combat.\n";
+                                    battleResult = battleResult + "\n" + creAtt + ".\nGit gud and try again!\n\nYou are now out of combat.\n";
                                     session.setAttribute("inCombat", "false");
                                 } else {
-                                    battleResult = battleResult + "\n" + creaturesAttackPlayer() + "\n";
+                                    battleResult = battleResult + "\n" + creAtt + "\n";
                                     battleResult = battleResult + "\n" + getPlayerStatus() + "\n";
                                 }
                             }
@@ -316,7 +322,7 @@ public class InGameHandler extends HttpServlet {
 
             for (int i = 0; i < monsterList.size(); i++) {
                 if (i == 0) {
-                    returnMonsters = returnMonsters + "\nThese creatures lives in area 1:" + monsterList.get(i);
+                    returnMonsters = returnMonsters + "\nThese creatures lives in area 1:" + "\n" +monsterList.get(i);
                 } else {
                     returnMonsters = returnMonsters + "\n" + monsterList.get(i);
                 }
@@ -327,7 +333,7 @@ public class InGameHandler extends HttpServlet {
 
             for (int i = 0; i < monsterList.size(); i++) {
                 if (i == 0) {
-                    returnMonsters = returnMonsters + "\nThese creatures lives in area 2:" + monsterList.get(i);
+                    returnMonsters = returnMonsters + "\n\nThese creatures lives in area 2:" + "\n" + monsterList.get(i);
                 } else {
                     returnMonsters = returnMonsters + "\n" + monsterList.get(i);
                 }
@@ -337,7 +343,7 @@ public class InGameHandler extends HttpServlet {
 
             for (int i = 0; i < monsterList.size(); i++) {
                 if (i == 0) {
-                    returnMonsters = returnMonsters + "\nThese creatures lives in area 3:" + monsterList.get(i);
+                    returnMonsters = returnMonsters + "\n\nThese creatures lives in area 3:" + "\n" + monsterList.get(i);
                 } else {
                     returnMonsters = returnMonsters + "\n" + monsterList.get(i);
                 }
@@ -572,5 +578,14 @@ public class InGameHandler extends HttpServlet {
         ws.BattleHandlerBean port = service_1.getBattleHandlerBeanPort();
         return port.getCreatureListName();
     }
+
+    private Integer statsGetAccountsCreated() {
+        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+        // If the calling of port operations may lead to race condition some synchronization is required.
+        ws.ApplicationWebService port = service_2.getApplicationWebServicePort();
+        return port.statsGetAccountsCreated();
+    }
+    
+    
 
 }

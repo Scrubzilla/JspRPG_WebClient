@@ -4,6 +4,12 @@
 <xsd:import namespace="http://WS/" schemaLocation="http://localhost:8080/JspRPGApplicationServer/ApplicationWebService?xsd=1"/>
 </xsd:schema>
 </types>
+<message name="updateRole">
+<part name="parameters" element="tns:updateRole"/>
+</message>
+<message name="updateRoleResponse">
+<part name="parameters" element="tns:updateRoleResponse"/>
+</message>
 <message name="changePassword">
 <part name="parameters" element="tns:changePassword"/>
 </message>
@@ -33,6 +39,12 @@
 </message>
 <message name="getRoleFromAccountResponse">
 <part name="parameters" element="tns:getRoleFromAccountResponse"/>
+</message>
+<message name="statsGetAccountsCreated">
+<part name="parameters" element="tns:statsGetAccountsCreated"/>
+</message>
+<message name="statsGetAccountsCreatedResponse">
+<part name="parameters" element="tns:statsGetAccountsCreatedResponse"/>
 </message>
 <message name="getCharacterName">
 <part name="parameters" element="tns:getCharacterName"/>
@@ -83,6 +95,10 @@
 <part name="parameters" element="tns:addAccountResponse"/>
 </message>
 <portType name="ApplicationWebService">
+<operation name="updateRole">
+<input wsam:Action="http://WS/ApplicationWebService/updateRoleRequest" message="tns:updateRole"/>
+<output wsam:Action="http://WS/ApplicationWebService/updateRoleResponse" message="tns:updateRoleResponse"/>
+</operation>
 <operation name="changePassword">
 <input wsam:Action="http://WS/ApplicationWebService/changePasswordRequest" message="tns:changePassword"/>
 <output wsam:Action="http://WS/ApplicationWebService/changePasswordResponse" message="tns:changePasswordResponse"/>
@@ -102,6 +118,10 @@
 <operation name="getRoleFromAccount">
 <input wsam:Action="http://WS/ApplicationWebService/getRoleFromAccountRequest" message="tns:getRoleFromAccount"/>
 <output wsam:Action="http://WS/ApplicationWebService/getRoleFromAccountResponse" message="tns:getRoleFromAccountResponse"/>
+</operation>
+<operation name="statsGetAccountsCreated">
+<input wsam:Action="http://WS/ApplicationWebService/statsGetAccountsCreatedRequest" message="tns:statsGetAccountsCreated"/>
+<output wsam:Action="http://WS/ApplicationWebService/statsGetAccountsCreatedResponse" message="tns:statsGetAccountsCreatedResponse"/>
 </operation>
 <operation name="getCharacterName">
 <input wsam:Action="http://WS/ApplicationWebService/getCharacterNameRequest" message="tns:getCharacterName"/>
@@ -138,6 +158,15 @@
 </portType>
 <binding name="ApplicationWebServicePortBinding" type="tns:ApplicationWebService">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+<operation name="updateRole">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
 <operation name="changePassword">
 <soap:operation soapAction=""/>
 <input>
@@ -175,6 +204,15 @@
 </output>
 </operation>
 <operation name="getRoleFromAccount">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="statsGetAccountsCreated">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>

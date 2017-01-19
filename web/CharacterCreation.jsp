@@ -10,7 +10,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="layout.css">
-        <title>Character creation</title>
+        <title>JspRPG Character Creation</title>
         <script type="text/javascript">
             var strength = 10;
             var dexterity = 10;

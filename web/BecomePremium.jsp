@@ -9,11 +9,37 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <link rel="stylesheet" href="layout.css">
+        <title>JspRPG Become Premium</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
-        <form action="BecomePremiumHandler" method="GET"> 
-        </form>
-    </body>
+        <div id="header"></div>
+    <center>
+        <div id="main">
+            <h1>Become a premium</h1>
+            <form action="BecomePremiumHandler" method="GET">  
+                <br>
+                Input card number
+                <br>
+                <input type="text" name="inputCardNo">
+                <br>
+                <br>
+                50kr will be drawn from your account and you will then be able to
+                <br>
+                enjoy premium member features.
+                <br>
+                <br>
+                <input type="submit" name="submitBut" value="Submit"/>
+            </form>
+            <br>
+            <%
+                String serverResponse = request.getParameter("response");
+
+                if (serverResponse != null) {
+                    out.println(serverResponse);
+                }
+            %>
+        </div>
+    </center>
+</body>
 </html>

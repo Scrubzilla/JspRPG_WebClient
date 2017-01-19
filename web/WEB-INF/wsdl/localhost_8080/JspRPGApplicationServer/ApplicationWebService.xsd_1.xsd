@@ -52,6 +52,14 @@
 
 <xs:element name="resetPasswordResponse" type="tns:resetPasswordResponse"/>
 
+<xs:element name="statsGetAccountsCreated" type="tns:statsGetAccountsCreated"/>
+
+<xs:element name="statsGetAccountsCreatedResponse" type="tns:statsGetAccountsCreatedResponse"/>
+
+<xs:element name="updateRole" type="tns:updateRole"/>
+
+<xs:element name="updateRoleResponse" type="tns:updateRoleResponse"/>
+
 <xs:complexType name="checkCharacterFromUsername">
 <xs:sequence>
 <xs:element name="username" type="xs:string" minOccurs="0"/>
@@ -92,6 +100,16 @@
 <xs:complexType name="changeEmailResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="statsGetAccountsCreated">
+<xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="statsGetAccountsCreatedResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:int" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
@@ -174,6 +192,19 @@
 </xs:complexType>
 
 <xs:complexType name="addCharacterResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="updateRole">
+<xs:sequence>
+<xs:element name="username" type="xs:string" minOccurs="0"/>
+<xs:element name="role" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="updateRoleResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:string" minOccurs="0"/>
 </xs:sequence>

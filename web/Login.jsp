@@ -42,7 +42,6 @@
                     <br>
                     <br>
                     <input type="submit" name="loginButton" value="Login"/>
-                    <input type="submit" name="fakeAccount" value="FAKE!"/>
                 </form>
             </div>
     </center>

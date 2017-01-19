@@ -46,17 +46,17 @@
 <message name="startingBattleResponse">
 <part name="parameters" element="tns:startingBattleResponse"/>
 </message>
-<message name="getCharacterHP">
-<part name="parameters" element="tns:getCharacterHP"/>
-</message>
-<message name="getCharacterHPResponse">
-<part name="parameters" element="tns:getCharacterHPResponse"/>
-</message>
 <message name="getCharacterName">
 <part name="parameters" element="tns:getCharacterName"/>
 </message>
 <message name="getCharacterNameResponse">
 <part name="parameters" element="tns:getCharacterNameResponse"/>
+</message>
+<message name="getCharacterHP">
+<part name="parameters" element="tns:getCharacterHP"/>
+</message>
+<message name="getCharacterHPResponse">
+<part name="parameters" element="tns:getCharacterHPResponse"/>
 </message>
 <message name="getCharacterMana">
 <part name="parameters" element="tns:getCharacterMana"/>
@@ -99,13 +99,13 @@
 <input wsam:Action="http://WS/BattleHandlerBean/startingBattleRequest" message="tns:startingBattle"/>
 <output wsam:Action="http://WS/BattleHandlerBean/startingBattleResponse" message="tns:startingBattleResponse"/>
 </operation>
-<operation name="getCharacterHP">
-<input wsam:Action="http://WS/BattleHandlerBean/getCharacterHPRequest" message="tns:getCharacterHP"/>
-<output wsam:Action="http://WS/BattleHandlerBean/getCharacterHPResponse" message="tns:getCharacterHPResponse"/>
-</operation>
 <operation name="getCharacterName">
 <input wsam:Action="http://WS/BattleHandlerBean/getCharacterNameRequest" message="tns:getCharacterName"/>
 <output wsam:Action="http://WS/BattleHandlerBean/getCharacterNameResponse" message="tns:getCharacterNameResponse"/>
+</operation>
+<operation name="getCharacterHP">
+<input wsam:Action="http://WS/BattleHandlerBean/getCharacterHPRequest" message="tns:getCharacterHP"/>
+<output wsam:Action="http://WS/BattleHandlerBean/getCharacterHPResponse" message="tns:getCharacterHPResponse"/>
 </operation>
 <operation name="getCharacterMana">
 <input wsam:Action="http://WS/BattleHandlerBean/getCharacterManaRequest" message="tns:getCharacterMana"/>
@@ -181,7 +181,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="getCharacterHP">
+<operation name="getCharacterName">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -190,7 +190,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="getCharacterName">
+<operation name="getCharacterHP">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
