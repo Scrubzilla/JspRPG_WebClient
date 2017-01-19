@@ -10,7 +10,7 @@ package gameclasses;
  * @author Nicklas
  */
 public class ZoneManager {
-    String[] zoneContainer = {"Noob Valley", "Sunset Beach", "Forest of doom and destruction"};
+    String[] zoneContainer = {"Noob Valley", "Sunset Beach", "Forest of Glory"};
     
     public ZoneManager() {
     }

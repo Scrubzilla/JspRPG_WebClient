@@ -28,6 +28,10 @@
 
 <xs:element name="getCreatureListNameResponse" type="tns:getCreatureListNameResponse"/>
 
+<xs:element name="getCreaturesBeforeBattle" type="tns:getCreaturesBeforeBattle"/>
+
+<xs:element name="getCreaturesBeforeBattleResponse" type="tns:getCreaturesBeforeBattleResponse"/>
+
 <xs:element name="getspellsNameList" type="tns:getspellsNameList"/>
 
 <xs:element name="getspellsNameListResponse" type="tns:getspellsNameListResponse"/>
@@ -53,6 +57,19 @@
 </xs:sequence>
 </xs:complexType>
 
+<xs:complexType name="getCreaturesBeforeBattle">
+<xs:sequence>
+<xs:element name="arg0" type="xs:string" minOccurs="0"/>
+<xs:element name="arg1" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getCreaturesBeforeBattleResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
 <xs:complexType name="getCharacterName">
 <xs:sequence>
 <xs:element name="username" type="xs:string" minOccurs="0"/>
@@ -75,16 +92,6 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="getCharacterMana">
-<xs:sequence/>
-</xs:complexType>
-
-<xs:complexType name="getCharacterManaResponse">
-<xs:sequence>
-<xs:element name="return" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
 <xs:complexType name="getspellsNameList">
 <xs:sequence/>
 </xs:complexType>
@@ -92,6 +99,16 @@
 <xs:complexType name="getspellsNameListResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getCharacterMana">
+<xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="getCharacterManaResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 

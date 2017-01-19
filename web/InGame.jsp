@@ -17,6 +17,11 @@
                 obj.value += responseText + "\n";
             }
 
+            function changeZoneName(location) {
+                document.getElementById("chatName").innerHTML = "Chat - " + location;
+
+            }
+
             function refrestChat(input, responseText) {
                 var obj = document.getElementById(input);
                 obj.value = responseText + "\n";
@@ -32,8 +37,15 @@
                     $('#commandField').val("");
                     $.get('InGameHandler', {command: gameCommand}, function (responseText) {
                         var response = responseText;
-                        addtxt('mainGame', responseText);
+                        var res = responseText.split("#");
+                        
+                        addtxt('mainGame', res[0]);
+                        var n = res[0].includes("You have safely arrived to");
 
+                        if (n === true) {
+                            var locationName = res[1];
+                            changeZoneName(locationName);
+                        }
                     });
                 });
                 $('#messageBut').click(function (event) {  
@@ -76,7 +88,7 @@
             </div>
 
             <div id="gameLeft" style="float: right;">
-                <h3>Chat - <%out.println(location);%></h3>
+                <h3><p id ="chatName" style="display:inline">Chat - <%out.println(location);%></p></h3>
 
                 <textarea id="chatBox" rows="30" cols="35" readonly="readonly" style="margin-right: 2px; overflow:auto; resize:none"></textarea>
                 <br>
@@ -103,7 +115,7 @@
                     Lookup spells - You will see all of the spells that you know.
                     <br>
                     <br>
-                    Lookup zone - You will see all of the monsters in the zone.
+                    Lookup creatures - You will see all of the monsters in the zone.
                     <br>
                     <br>
                     Lookup Map - You will see all of the zone names.

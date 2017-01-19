@@ -10,36 +10,6 @@
 <message name="getCreatureListNameResponse">
 <part name="parameters" element="tns:getCreatureListNameResponse"/>
 </message>
-<message name="attackCreature">
-<part name="parameters" element="tns:attackCreature"/>
-</message>
-<message name="attackCreatureResponse">
-<part name="parameters" element="tns:attackCreatureResponse"/>
-</message>
-<message name="getCharacterMana">
-<part name="parameters" element="tns:getCharacterMana"/>
-</message>
-<message name="getCharacterManaResponse">
-<part name="parameters" element="tns:getCharacterManaResponse"/>
-</message>
-<message name="getCharacterHP">
-<part name="parameters" element="tns:getCharacterHP"/>
-</message>
-<message name="getCharacterHPResponse">
-<part name="parameters" element="tns:getCharacterHPResponse"/>
-</message>
-<message name="startingBattle">
-<part name="parameters" element="tns:startingBattle"/>
-</message>
-<message name="startingBattleResponse">
-<part name="parameters" element="tns:startingBattleResponse"/>
-</message>
-<message name="getCharacterName">
-<part name="parameters" element="tns:getCharacterName"/>
-</message>
-<message name="getCharacterNameResponse">
-<part name="parameters" element="tns:getCharacterNameResponse"/>
-</message>
 <message name="getspellsNameList">
 <part name="parameters" element="tns:getspellsNameList"/>
 </message>
@@ -64,30 +34,46 @@
 <message name="useSpellOnCreatureResponse">
 <part name="parameters" element="tns:useSpellOnCreatureResponse"/>
 </message>
+<message name="getCreaturesBeforeBattle">
+<part name="parameters" element="tns:getCreaturesBeforeBattle"/>
+</message>
+<message name="getCreaturesBeforeBattleResponse">
+<part name="parameters" element="tns:getCreaturesBeforeBattleResponse"/>
+</message>
+<message name="startingBattle">
+<part name="parameters" element="tns:startingBattle"/>
+</message>
+<message name="startingBattleResponse">
+<part name="parameters" element="tns:startingBattleResponse"/>
+</message>
+<message name="getCharacterHP">
+<part name="parameters" element="tns:getCharacterHP"/>
+</message>
+<message name="getCharacterHPResponse">
+<part name="parameters" element="tns:getCharacterHPResponse"/>
+</message>
+<message name="getCharacterName">
+<part name="parameters" element="tns:getCharacterName"/>
+</message>
+<message name="getCharacterNameResponse">
+<part name="parameters" element="tns:getCharacterNameResponse"/>
+</message>
+<message name="getCharacterMana">
+<part name="parameters" element="tns:getCharacterMana"/>
+</message>
+<message name="getCharacterManaResponse">
+<part name="parameters" element="tns:getCharacterManaResponse"/>
+</message>
+<message name="attackCreature">
+<part name="parameters" element="tns:attackCreature"/>
+</message>
+<message name="attackCreatureResponse">
+<part name="parameters" element="tns:attackCreatureResponse"/>
+</message>
 <portType name="BattleHandlerBean">
 <operation name="getCreatureListName">
 <input wsam:Action="http://WS/BattleHandlerBean/getCreatureListNameRequest" message="tns:getCreatureListName"/>
 <output wsam:Action="http://WS/BattleHandlerBean/getCreatureListNameResponse" message="tns:getCreatureListNameResponse"/>
-</operation>
-<operation name="attackCreature">
-<input wsam:Action="http://WS/BattleHandlerBean/attackCreatureRequest" message="tns:attackCreature"/>
-<output wsam:Action="http://WS/BattleHandlerBean/attackCreatureResponse" message="tns:attackCreatureResponse"/>
-</operation>
-<operation name="getCharacterMana">
-<input wsam:Action="http://WS/BattleHandlerBean/getCharacterManaRequest" message="tns:getCharacterMana"/>
-<output wsam:Action="http://WS/BattleHandlerBean/getCharacterManaResponse" message="tns:getCharacterManaResponse"/>
-</operation>
-<operation name="getCharacterHP">
-<input wsam:Action="http://WS/BattleHandlerBean/getCharacterHPRequest" message="tns:getCharacterHP"/>
-<output wsam:Action="http://WS/BattleHandlerBean/getCharacterHPResponse" message="tns:getCharacterHPResponse"/>
-</operation>
-<operation name="startingBattle">
-<input wsam:Action="http://WS/BattleHandlerBean/startingBattleRequest" message="tns:startingBattle"/>
-<output wsam:Action="http://WS/BattleHandlerBean/startingBattleResponse" message="tns:startingBattleResponse"/>
-</operation>
-<operation name="getCharacterName">
-<input wsam:Action="http://WS/BattleHandlerBean/getCharacterNameRequest" message="tns:getCharacterName"/>
-<output wsam:Action="http://WS/BattleHandlerBean/getCharacterNameResponse" message="tns:getCharacterNameResponse"/>
 </operation>
 <operation name="getspellsNameList">
 <input wsam:Action="http://WS/BattleHandlerBean/getspellsNameListRequest" message="tns:getspellsNameList"/>
@@ -105,55 +91,34 @@
 <input wsam:Action="http://WS/BattleHandlerBean/useSpellOnCreatureRequest" message="tns:useSpellOnCreature"/>
 <output wsam:Action="http://WS/BattleHandlerBean/useSpellOnCreatureResponse" message="tns:useSpellOnCreatureResponse"/>
 </operation>
+<operation name="getCreaturesBeforeBattle">
+<input wsam:Action="http://WS/BattleHandlerBean/getCreaturesBeforeBattleRequest" message="tns:getCreaturesBeforeBattle"/>
+<output wsam:Action="http://WS/BattleHandlerBean/getCreaturesBeforeBattleResponse" message="tns:getCreaturesBeforeBattleResponse"/>
+</operation>
+<operation name="startingBattle">
+<input wsam:Action="http://WS/BattleHandlerBean/startingBattleRequest" message="tns:startingBattle"/>
+<output wsam:Action="http://WS/BattleHandlerBean/startingBattleResponse" message="tns:startingBattleResponse"/>
+</operation>
+<operation name="getCharacterHP">
+<input wsam:Action="http://WS/BattleHandlerBean/getCharacterHPRequest" message="tns:getCharacterHP"/>
+<output wsam:Action="http://WS/BattleHandlerBean/getCharacterHPResponse" message="tns:getCharacterHPResponse"/>
+</operation>
+<operation name="getCharacterName">
+<input wsam:Action="http://WS/BattleHandlerBean/getCharacterNameRequest" message="tns:getCharacterName"/>
+<output wsam:Action="http://WS/BattleHandlerBean/getCharacterNameResponse" message="tns:getCharacterNameResponse"/>
+</operation>
+<operation name="getCharacterMana">
+<input wsam:Action="http://WS/BattleHandlerBean/getCharacterManaRequest" message="tns:getCharacterMana"/>
+<output wsam:Action="http://WS/BattleHandlerBean/getCharacterManaResponse" message="tns:getCharacterManaResponse"/>
+</operation>
+<operation name="attackCreature">
+<input wsam:Action="http://WS/BattleHandlerBean/attackCreatureRequest" message="tns:attackCreature"/>
+<output wsam:Action="http://WS/BattleHandlerBean/attackCreatureResponse" message="tns:attackCreatureResponse"/>
+</operation>
 </portType>
 <binding name="BattleHandlerBeanPortBinding" type="tns:BattleHandlerBean">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
 <operation name="getCreatureListName">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="attackCreature">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="getCharacterMana">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="getCharacterHP">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="startingBattle">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="getCharacterName">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -190,6 +155,60 @@
 </output>
 </operation>
 <operation name="useSpellOnCreature">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="getCreaturesBeforeBattle">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="startingBattle">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="getCharacterHP">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="getCharacterName">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="getCharacterMana">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="attackCreature">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>

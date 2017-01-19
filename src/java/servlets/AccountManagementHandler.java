@@ -55,6 +55,7 @@ public class AccountManagementHandler extends HttpServlet {
                 ZoneManager zm = new ZoneManager();
                 String locationName = zm.idToName(charLocation);
                 
+                session.setAttribute("inCombat", "false");
                 session.setAttribute("location", locationName);
                 session.setAttribute("characterName", characterName);
                 response.sendRedirect("./InGame.jsp");

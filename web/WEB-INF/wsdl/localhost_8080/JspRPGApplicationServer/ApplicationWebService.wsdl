@@ -4,17 +4,11 @@
 <xsd:import namespace="http://WS/" schemaLocation="http://localhost:8080/JspRPGApplicationServer/ApplicationWebService?xsd=1"/>
 </xsd:schema>
 </types>
-<message name="getRoleFromAccount">
-<part name="parameters" element="tns:getRoleFromAccount"/>
+<message name="changePassword">
+<part name="parameters" element="tns:changePassword"/>
 </message>
-<message name="getRoleFromAccountResponse">
-<part name="parameters" element="tns:getRoleFromAccountResponse"/>
-</message>
-<message name="checkCharacterFromUsername">
-<part name="parameters" element="tns:checkCharacterFromUsername"/>
-</message>
-<message name="checkCharacterFromUsernameResponse">
-<part name="parameters" element="tns:checkCharacterFromUsernameResponse"/>
+<message name="changePasswordResponse">
+<part name="parameters" element="tns:changePasswordResponse"/>
 </message>
 <message name="getSecurityQuestion">
 <part name="parameters" element="tns:getSecurityQuestion"/>
@@ -22,17 +16,23 @@
 <message name="getSecurityQuestionResponse">
 <part name="parameters" element="tns:getSecurityQuestionResponse"/>
 </message>
-<message name="changePassword">
-<part name="parameters" element="tns:changePassword"/>
+<message name="checkSecurityAnswer">
+<part name="parameters" element="tns:checkSecurityAnswer"/>
 </message>
-<message name="changePasswordResponse">
-<part name="parameters" element="tns:changePasswordResponse"/>
+<message name="checkSecurityAnswerResponse">
+<part name="parameters" element="tns:checkSecurityAnswerResponse"/>
 </message>
-<message name="getCharLocation">
-<part name="parameters" element="tns:getCharLocation"/>
+<message name="checkCharacterFromUsername">
+<part name="parameters" element="tns:checkCharacterFromUsername"/>
 </message>
-<message name="getCharLocationResponse">
-<part name="parameters" element="tns:getCharLocationResponse"/>
+<message name="checkCharacterFromUsernameResponse">
+<part name="parameters" element="tns:checkCharacterFromUsernameResponse"/>
+</message>
+<message name="getRoleFromAccount">
+<part name="parameters" element="tns:getRoleFromAccount"/>
+</message>
+<message name="getRoleFromAccountResponse">
+<part name="parameters" element="tns:getRoleFromAccountResponse"/>
 </message>
 <message name="getCharacterName">
 <part name="parameters" element="tns:getCharacterName"/>
@@ -40,29 +40,17 @@
 <message name="getCharacterNameResponse">
 <part name="parameters" element="tns:getCharacterNameResponse"/>
 </message>
+<message name="changeEmail">
+<part name="parameters" element="tns:changeEmail"/>
+</message>
+<message name="changeEmailResponse">
+<part name="parameters" element="tns:changeEmailResponse"/>
+</message>
 <message name="logInCredentials">
 <part name="parameters" element="tns:logInCredentials"/>
 </message>
 <message name="logInCredentialsResponse">
 <part name="parameters" element="tns:logInCredentialsResponse"/>
-</message>
-<message name="addAccount">
-<part name="parameters" element="tns:addAccount"/>
-</message>
-<message name="addAccountResponse">
-<part name="parameters" element="tns:addAccountResponse"/>
-</message>
-<message name="addCharacter">
-<part name="parameters" element="tns:addCharacter"/>
-</message>
-<message name="addCharacterResponse">
-<part name="parameters" element="tns:addCharacterResponse"/>
-</message>
-<message name="resetPassword">
-<part name="parameters" element="tns:resetPassword"/>
-</message>
-<message name="resetPasswordResponse">
-<part name="parameters" element="tns:resetPasswordResponse"/>
 </message>
 <message name="forgotPassword">
 <part name="parameters" element="tns:forgotPassword"/>
@@ -70,84 +58,87 @@
 <message name="forgotPasswordResponse">
 <part name="parameters" element="tns:forgotPasswordResponse"/>
 </message>
-<message name="changeEmail">
-<part name="parameters" element="tns:changeEmail"/>
+<message name="resetPassword">
+<part name="parameters" element="tns:resetPassword"/>
 </message>
-<message name="changeEmailResponse">
-<part name="parameters" element="tns:changeEmailResponse"/>
+<message name="resetPasswordResponse">
+<part name="parameters" element="tns:resetPasswordResponse"/>
 </message>
-<message name="checkSecurityAnswer">
-<part name="parameters" element="tns:checkSecurityAnswer"/>
+<message name="getCharLocation">
+<part name="parameters" element="tns:getCharLocation"/>
 </message>
-<message name="checkSecurityAnswerResponse">
-<part name="parameters" element="tns:checkSecurityAnswerResponse"/>
+<message name="getCharLocationResponse">
+<part name="parameters" element="tns:getCharLocationResponse"/>
+</message>
+<message name="addCharacter">
+<part name="parameters" element="tns:addCharacter"/>
+</message>
+<message name="addCharacterResponse">
+<part name="parameters" element="tns:addCharacterResponse"/>
+</message>
+<message name="addAccount">
+<part name="parameters" element="tns:addAccount"/>
+</message>
+<message name="addAccountResponse">
+<part name="parameters" element="tns:addAccountResponse"/>
 </message>
 <portType name="ApplicationWebService">
-<operation name="getRoleFromAccount">
-<input wsam:Action="http://WS/ApplicationWebService/getRoleFromAccountRequest" message="tns:getRoleFromAccount"/>
-<output wsam:Action="http://WS/ApplicationWebService/getRoleFromAccountResponse" message="tns:getRoleFromAccountResponse"/>
-</operation>
-<operation name="checkCharacterFromUsername">
-<input wsam:Action="http://WS/ApplicationWebService/checkCharacterFromUsernameRequest" message="tns:checkCharacterFromUsername"/>
-<output wsam:Action="http://WS/ApplicationWebService/checkCharacterFromUsernameResponse" message="tns:checkCharacterFromUsernameResponse"/>
+<operation name="changePassword">
+<input wsam:Action="http://WS/ApplicationWebService/changePasswordRequest" message="tns:changePassword"/>
+<output wsam:Action="http://WS/ApplicationWebService/changePasswordResponse" message="tns:changePasswordResponse"/>
 </operation>
 <operation name="getSecurityQuestion">
 <input wsam:Action="http://WS/ApplicationWebService/getSecurityQuestionRequest" message="tns:getSecurityQuestion"/>
 <output wsam:Action="http://WS/ApplicationWebService/getSecurityQuestionResponse" message="tns:getSecurityQuestionResponse"/>
 </operation>
-<operation name="changePassword">
-<input wsam:Action="http://WS/ApplicationWebService/changePasswordRequest" message="tns:changePassword"/>
-<output wsam:Action="http://WS/ApplicationWebService/changePasswordResponse" message="tns:changePasswordResponse"/>
+<operation name="checkSecurityAnswer">
+<input wsam:Action="http://WS/ApplicationWebService/checkSecurityAnswerRequest" message="tns:checkSecurityAnswer"/>
+<output wsam:Action="http://WS/ApplicationWebService/checkSecurityAnswerResponse" message="tns:checkSecurityAnswerResponse"/>
 </operation>
-<operation name="getCharLocation">
-<input wsam:Action="http://WS/ApplicationWebService/getCharLocationRequest" message="tns:getCharLocation"/>
-<output wsam:Action="http://WS/ApplicationWebService/getCharLocationResponse" message="tns:getCharLocationResponse"/>
+<operation name="checkCharacterFromUsername">
+<input wsam:Action="http://WS/ApplicationWebService/checkCharacterFromUsernameRequest" message="tns:checkCharacterFromUsername"/>
+<output wsam:Action="http://WS/ApplicationWebService/checkCharacterFromUsernameResponse" message="tns:checkCharacterFromUsernameResponse"/>
+</operation>
+<operation name="getRoleFromAccount">
+<input wsam:Action="http://WS/ApplicationWebService/getRoleFromAccountRequest" message="tns:getRoleFromAccount"/>
+<output wsam:Action="http://WS/ApplicationWebService/getRoleFromAccountResponse" message="tns:getRoleFromAccountResponse"/>
 </operation>
 <operation name="getCharacterName">
 <input wsam:Action="http://WS/ApplicationWebService/getCharacterNameRequest" message="tns:getCharacterName"/>
 <output wsam:Action="http://WS/ApplicationWebService/getCharacterNameResponse" message="tns:getCharacterNameResponse"/>
 </operation>
+<operation name="changeEmail">
+<input wsam:Action="http://WS/ApplicationWebService/changeEmailRequest" message="tns:changeEmail"/>
+<output wsam:Action="http://WS/ApplicationWebService/changeEmailResponse" message="tns:changeEmailResponse"/>
+</operation>
 <operation name="logInCredentials">
 <input wsam:Action="http://WS/ApplicationWebService/logInCredentialsRequest" message="tns:logInCredentials"/>
 <output wsam:Action="http://WS/ApplicationWebService/logInCredentialsResponse" message="tns:logInCredentialsResponse"/>
-</operation>
-<operation name="addAccount">
-<input wsam:Action="http://WS/ApplicationWebService/addAccountRequest" message="tns:addAccount"/>
-<output wsam:Action="http://WS/ApplicationWebService/addAccountResponse" message="tns:addAccountResponse"/>
-</operation>
-<operation name="addCharacter">
-<input wsam:Action="http://WS/ApplicationWebService/addCharacterRequest" message="tns:addCharacter"/>
-<output wsam:Action="http://WS/ApplicationWebService/addCharacterResponse" message="tns:addCharacterResponse"/>
-</operation>
-<operation name="resetPassword">
-<input wsam:Action="http://WS/ApplicationWebService/resetPasswordRequest" message="tns:resetPassword"/>
-<output wsam:Action="http://WS/ApplicationWebService/resetPasswordResponse" message="tns:resetPasswordResponse"/>
 </operation>
 <operation name="forgotPassword">
 <input wsam:Action="http://WS/ApplicationWebService/forgotPasswordRequest" message="tns:forgotPassword"/>
 <output wsam:Action="http://WS/ApplicationWebService/forgotPasswordResponse" message="tns:forgotPasswordResponse"/>
 </operation>
-<operation name="changeEmail">
-<input wsam:Action="http://WS/ApplicationWebService/changeEmailRequest" message="tns:changeEmail"/>
-<output wsam:Action="http://WS/ApplicationWebService/changeEmailResponse" message="tns:changeEmailResponse"/>
+<operation name="resetPassword">
+<input wsam:Action="http://WS/ApplicationWebService/resetPasswordRequest" message="tns:resetPassword"/>
+<output wsam:Action="http://WS/ApplicationWebService/resetPasswordResponse" message="tns:resetPasswordResponse"/>
 </operation>
-<operation name="checkSecurityAnswer">
-<input wsam:Action="http://WS/ApplicationWebService/checkSecurityAnswerRequest" message="tns:checkSecurityAnswer"/>
-<output wsam:Action="http://WS/ApplicationWebService/checkSecurityAnswerResponse" message="tns:checkSecurityAnswerResponse"/>
+<operation name="getCharLocation">
+<input wsam:Action="http://WS/ApplicationWebService/getCharLocationRequest" message="tns:getCharLocation"/>
+<output wsam:Action="http://WS/ApplicationWebService/getCharLocationResponse" message="tns:getCharLocationResponse"/>
+</operation>
+<operation name="addCharacter">
+<input wsam:Action="http://WS/ApplicationWebService/addCharacterRequest" message="tns:addCharacter"/>
+<output wsam:Action="http://WS/ApplicationWebService/addCharacterResponse" message="tns:addCharacterResponse"/>
+</operation>
+<operation name="addAccount">
+<input wsam:Action="http://WS/ApplicationWebService/addAccountRequest" message="tns:addAccount"/>
+<output wsam:Action="http://WS/ApplicationWebService/addAccountResponse" message="tns:addAccountResponse"/>
 </operation>
 </portType>
 <binding name="ApplicationWebServicePortBinding" type="tns:ApplicationWebService">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
-<operation name="getRoleFromAccount">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="checkCharacterFromUsername">
+<operation name="changePassword">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -165,7 +156,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="changePassword">
+<operation name="checkSecurityAnswer">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -174,7 +165,16 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="getCharLocation">
+<operation name="checkCharacterFromUsername">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="getRoleFromAccount">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -192,34 +192,16 @@
 <soap:body use="literal"/>
 </output>
 </operation>
+<operation name="changeEmail">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
 <operation name="logInCredentials">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="addAccount">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="addCharacter">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="resetPassword">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -237,7 +219,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="changeEmail">
+<operation name="resetPassword">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -246,7 +228,25 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="checkSecurityAnswer">
+<operation name="getCharLocation">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="addCharacter">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="addAccount">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
